@@ -2,72 +2,59 @@
 <html>
 <head>
 <style>
-    body{
+    body {
         box-sizing: border-box;
         background-color: deeppink;
     }
 
     .main {
         margin: 0 auto;
-        padding-top: 18%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
         width: 340px;
-        height: 500px;
     }
 
-    .field-content {
-        display: block;
-        width: 100%;
-        height: 100%;
-    }
     .field-row {
         width: 100%;
-        height: 40px;
         padding-bottom: 10px;
-    }
-    .field-area-row {
-        width: 100%;
-        height: 90px;
-        padding-bottom: 15px;
+        padding-left: 40px;
+        position: relative;
     }
 
-    .text-field{
+    .field-row > .text-field {
         box-sizing: border-box;
         padding-left: 10px;
-        border-bottom-right-radius: 5px;
-        border-top-right-radius: 5px;
+        border-radius: 0 5px 5px 0;
         border: none;
-        float: right;
-        width: 300px;
+        width: 100%;
         height: 40px;
     }
 
-    .textarea-field {
+    .field-row > .textarea-field {
         box-sizing: border-box;
         padding-top: 10px;
         padding-left: 10px;
-        border-bottom-right-radius: 5px;
-        border-top-right-radius: 5px;
+        border-radius: 0 5px 5px 5px;
         border: none;
-        float: right;
-        width: 300px;
+        width: 100%;
         height: 80px;
         font-family: Arial;
     }
 
-    .img-block{
+    .field-row > .img {
         border-bottom-left-radius: 5px;
         border-top-left-radius: 5px;
-        position: relative;
-        float: left;
-        width: 40px;
-        height: 40px;
+        position: absolute;
+        left:0; top:0;
         background-color: orange;
     }
 
-    .common-img-block{
+    .common-img {
         width: 20px;
         height: 20px;
-        padding: 25%;
+        padding: 10px;
         background-color: orange;
         background-repeat: no-repeat;
         background-image: url("sprite.png");
@@ -75,24 +62,20 @@
         background-origin: content-box;
         background-size: 82px 18px;
     }
+        .common-img.name {
+            background-position: 0px 0px;
+        }
+        .common-img.email {
+            background-position: -62px 0px;
+        }
+        .common-img.phone {
+            background-position: -21px 0px;
+        }
+        .common-img.comment {
+            background-position: -41px 0px;
+        }
 
-    .name-block {
-        background-position: 0px 0px;
-    }
-
-    .email-block {
-        background-position: -62px 0px;
-    }
-
-    .phone-block {
-        background-position: -21px 0px;
-    }
-
-    .comment-block {
-        background-position: -41px 0px;
-    }
-
-    .submit-button {
+    input[type=submit] {
         border-radius: 5px;
         border: none;
         float: right;
@@ -104,53 +87,39 @@
 </style>
 </head>
     <body>
-        <section>
-            <div class="main">
-                <form action="#" method="post">
-                    <div class="field-content">
-                        <div class="field-row">
-                            <div class="img-block">
-                                <div class="common-img-block name-block">
-
-                                </div>
-                            </div>
-                            <input type="text" placeholder="Name" class="text-field"/>
-                        </div>
-
-                        <div class="field-row">
-                            <div class="img-block">
-                                <div class="common-img-block email-block"> 
-
-                                </div>
-                            </div>
-                            <input type="text" placeholder="Email" class="text-field"/>
-                        </div>
-
-                        <div class="field-row">
-                            <div class="img-block">
-                                <div class="common-img-block phone-block">
-
-                                </div>
-                            </div>
-                            <input type="text" placeholder="Phone" class="text-field"/>
-                        </div>
-
-                        <div class="field-area-row">
-                            <div class="img-block">
-                                <div class="common-img-block comment-block">
-
-                                </div>
-                            </div>
-                            <textarea placeholder="Comments" class="textarea-field" cols="40" rows="5"></textarea>
-                        </div>
-
-                        <div class="field-row">
-                            <input type="submit" value="Submit" class="submit-button"/>
-                        </div>
+        <div class="main">
+            <form action="#" method="post">
+                <div class="field-row">
+                    <div class="img">
+                        <div class="common-img name"></div>
                     </div>
+                    <input type="text" placeholder="Name" class="text-field"/>
+                </div>
 
-                </form>
-            </div>
-        </section>
+                <div class="field-row">
+                    <div class="img">
+                        <div class="common-img email"></div>
+                    </div>
+                    <input type="text" placeholder="Email" class="text-field"/>
+                </div>
+
+                <div class="field-row">
+                    <div class="img">
+                        <div class="common-img phone"></div>
+                    </div>
+                    <input type="text" placeholder="Phone" class="text-field"/>
+                </div>
+
+                <div class="field-row">
+                    <div class="img">
+                        <div class="common-img comment"></div>
+                    </div>
+                    <textarea placeholder="Comments" class="textarea-field" cols="40" rows="5"></textarea>
+                </div>
+                <div class="field-row">
+                    <input type="submit" value="Submit" />
+                </div>
+            </form>
+        </div>
     </body>
 </html>
