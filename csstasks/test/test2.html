@@ -8,9 +8,9 @@
     }
 
     .field-row {
-        width: 100%;
         padding-bottom: 10px;
-        padding-right: 40px;
+        padding-right: 10px;
+        padding-left: 10px;
         position: relative;
     }
 
@@ -24,16 +24,11 @@
         height: 40px;
     }
 
-    .field-row > .img {
-        margin: 1px;
+    .common-img {
         border-radius: 5px;
         position: absolute;
-        height: 38px;
-        right:40px; top:0;
-        background-color: white;
-    }
-
-    .common-img {
+        right:10px;
+        top:0;
         width: 20px;
         height: 20px;
         padding: 10px;
@@ -42,7 +37,7 @@
         background-image: url("person-lock.png");
         background-clip: content-box;
         background-origin: content-box;
-        background-size: 40px 18px;
+        background-size: 40px 20px;
     }
 
     .common-img.name {
@@ -57,16 +52,17 @@
         border: none;
         color: mintcream;
         background-color: #00ba9d;
-        width: 340px;
+        width: 100%;
         height: 40px;
     }
 
     .close {
         padding-right: 10px;
-        font-size: 7px;
+        font-size: 6px;
         border-radius: 50%;
         border: none;
-        right: 0;
+        right: 10px;
+        top: 5px;
         position: absolute;
         color: mintcream;
         background-color: #d78198;
@@ -81,67 +77,72 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 360px;
+        width: 800px;
         height: 250px;
         background-color: #e0e4e7;
     }
 
-    .inner-main {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-57%, -50%);
-        background-color: #e0e4e7;
-        width: 300px;
+    a {
+        color: grey;
     }
 
     p {
         font-family: Arial;
+    }
+
+    .field-row > p {
+        width: 100%;
+        position: absolute;
+        text-align: center;
+    }
+
+    .field-row > p.forget-password {
         text-decoration: underline; 
-        padding-left: 100px;
     }
-
-    a{
-        color: grey;
-    }
-
-    form {
+    
+    .login-form {
         padding-top: 15px;
-        width: 340px;
+        width: 100%;
     }
+
+     @media only screen and (max-width: 600px) {
+        .main {
+            width: 475px;
+        }
+     }
+
+     @media only screen and (min-width: 600px) and (max-width: 1024px) {
+        .main {
+            width: 80%;
+        }
+     }
 
 </style>
 </head>
     <body>
         <div class="main">
-            <div class="inner-main">
+            <div class="field-row">
+                <button class="close">X</button>
+            </div>
+    
+            <form action="#" method="post" class="login-form">
                 <div class="field-row">
-                    <button class="close">X</button>
+                    <input type="text" placeholder="Enter your name" class="text-field"/>
+                    <div class="common-img name"></div>
                 </div>
-        
-                <form action="#" method="post">
-                    <div class="field-row">
-                        <input type="text" placeholder="Enter your name" class="text-field"/>
-                        <div class="img">
-                            <div class="common-img name"></div>
-                        </div>
-                    </div>
-    
-                    <div class="field-row">
-                        <input type="text" placeholder="Password" class="text-field"/>
-                        <div class="img">
-                            <div class="common-img email"></div>
-                        </div>
-                    </div>
-    
-                    <div class="field-row">
-                        <input type="submit" value="Login" />
-                    </div>
-                </form>
 
                 <div class="field-row">
-                    <p><a href="#">Lost your password?</a></p>
+                    <input type="text" placeholder="Password" class="text-field"/>
+                    <div class="common-img email"></div>
                 </div>
+
+                <div class="field-row">
+                    <input type="submit" value="Login" />
+                </div>
+            </form>
+
+            <div class="field-row">
+                <p><a href="#">Lost your password?</a></p>
             </div>
         </div>
     </body>
