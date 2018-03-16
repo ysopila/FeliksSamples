@@ -1,0 +1,128 @@
+<html>
+    <head>
+            <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+        <style>
+            .spinner {
+                position: relative;
+                color: grey;
+                height: 12px;
+                width: 1em;
+            }
+
+            .spinner .arrow-down {
+                position: absolute;
+                top: 6px;
+                left: 0;
+            }
+            .spinner .arrow-up {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+
+            html, body {
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .main {
+                max-width: 900px;
+                width: 100%;
+                margin: auto;
+                background: #ddd;
+            }
+            .search-panel {
+                padding: 15px;
+                width: 100%;
+                box-sizing: border-box;
+                
+            }
+            .search-panel > * {
+                font-size: 13px;
+            }
+            .search-panel .left {
+                float: left;
+            }
+            .search-panel .right {
+                float: right;
+            }
+            .search-panel .left > *,
+            .search-panel .right > * {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .search-panel .counter,
+            .search-panel input[type=text],
+            button
+            {
+                border-radius: 3px;
+            }
+
+            .search-panel .counter {
+                background: #f6f6f6;
+                padding: 7px;
+                width: 29px;
+                height: 29px;
+                box-sizing: border-box;
+                line-height: 15px;
+                text-align: center;
+            }
+            .search-panel input[type=text] {
+                height: 29px;
+                line-height: 15px;
+                padding: 7px;
+                box-sizing: border-box;
+                border:0;
+            }
+            .search-panel button {
+                height: 29px;
+                line-height: 15px;
+                padding: 7px 12px;
+                border:0;
+                background: #999999;
+                color: white;
+            }
+            .search-panel a {
+                color: #286599;
+                height: 29px;
+                padding: 7px;
+                line-height: 15px;
+                box-sizing: border-box;
+            }
+            .search-panel .text-field {
+                position: relative;
+            }
+            .search-panel .text-field input[type=text] {
+                padding-right: 15px;
+            }
+            .search-panel .text-field .spinner {
+                position: absolute;
+                right: 0;
+                top: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='main'>
+            <div class="search-panel">
+                <div class="left">
+                    <label class="counter">0</label>
+                    <div class="text-field">
+                        <input type="text" placeholder="Reload results using current selection"/>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
+                        </div>
+                    </div>
+                    <button>Apply</button>
+                </div>
+                <div class="right">
+                    <a>Filter by questionnaire</a>                    
+                    <input type="text" placeholder="Search"/>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+    </body>
+</html>
