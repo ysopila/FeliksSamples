@@ -27,27 +27,39 @@
         }
 
         th {
-            width: 120px;
+            padding: 10px 5px 5px 10px;
             background-color: #f6f6f6;
         }
 
-        tr {
+        .small-col{
+            width: 5%;
+        }
+
+        .large-col{
+            width: 10%;
+        }
+
+        tr.enabled-state {
             background-color: #ffffff;
+            color:#666666;
+        }
+
+        tr.disabled-state {
+            background-color: #ffffff;
+            color: #b3b3b3;
         }
 
         td {
             overflow: hidden;
             text-overflow: ellipsis;
-            text-align: right;   
+            text-align: right;  
+            font-size: 12px; 
+            padding-right: 15px;
         }
 
-        .content-left{
+        td.content-left{
             padding-left: 15px;
             text-align: left;   
-        }
-
-        .content-right{
-            padding-right: 15px;
         }
 
         .inline-right-item {
@@ -67,29 +79,19 @@
             overflow: hidden;
         }
 
-        .header-text {
+        .common-text-look{
             display: inline-block;
             padding: 0;
             margin: 0;
             font-size: 12px;
             width: 80px;
             height: 40px;
+            color:#666666;
+        }
+
+        .header-text-position {
             top: 5px;
             position: relative;
-        }
-
-        .header-multiline-text {
-            display: inline-block;
-            padding: 0;
-            margin: 0;
-            font-size: 12px;
-            width: 80px;
-            height: 40px;
-        }
-
-        .header-pos {
-            padding: 10px 5px 5px 10px;
-            width: 120px;
         }
 
         .header-row {
@@ -112,22 +114,14 @@
 
         .arrow-down {
             position: relative;
-            top: 8px;
+            top: 7px;
             right: 0;
         }
 
         .arrow-up {
             position: relative;
             top: 0;
-            left: 14.5px;
-        }
-
-        .enabled-state {
-            color: black;
-        }
-
-        .disabled-state {
-            color: grey;
+            left: 12px;
         }
 
         .img-color {
@@ -135,6 +129,7 @@
         }
 
         .counter {
+            border-radius: 5px;
             display: block;
             text-align: center;
             line-height: 150%;
@@ -172,7 +167,7 @@
         }
 
         .button {
-            background-color: grey;
+            background-color: #999999;
             padding: 5px 10px 5px 10px;
             border-radius: 5px;
             border: 0;
@@ -183,18 +178,53 @@
 
         .grid-look{
             margin-bottom: 10px;
+            width: 1240px;
         }
 
+        .circle{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: relative;
+            top: -2px;
+        }
+
+        .off {
+            background: #af2d00;
+            left: -1.5px;
+        }
+
+        .on {
+            right: -16px;
+            background: #a9c638;
+        }
+
+        .toggle {
+            width: 36px;
+            height: 18px;
+            background: white;
+            border-radius: 40px;
+            border: 1px solid black;
+        }
+
+        th.content-left{
+            padding-left: 0px;
+        }
+
+        .checkbox{
+            width: 20px;
+            height: 20px;
+        }
     </style>
 </head>
     <body>
         <div class="main">
             <div class="search-panel">
                 <label class="inline-left-item counter">0</label>
-                <input type="text" class="inline-left-item text-field selection" placeholder="Reload results using current selection"/>
+                <input class="inline-left-item text-field selection" type="text" placeholder="Reload results using current selection"/>
                 <div class="extended-spinner">
-                    <i class="arrow-up fas fa-caret-up"></i>
-                    <i class="arrow-down fas fa-caret-down"></i>
+                    <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                    <i class="arrow-down fas fa-caret-down fa-xs"></i>
                 </div>
                 <button class="button inline-left-item">Apply</button>
                 <input type="text" class="inline-right-item text-field search" placeholder="Search"/>
@@ -203,212 +233,228 @@
 
             <table class="grid-look" cellspacing="0" cellpadding="0">
                 <tr class="header-row">
-                    <th>
-                        <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter">
+                    <th class="content-left small-col">
+                        <input class="checkbox" type="checkbox" />
                     </th>
-                    <th class="cell">
-                        <div class="header-pos">
-                            <p class="header-text">PARTICIPANT</p>
-                            <div class="spinner">
-                                <i class="arrow-up fas fa-caret-up"></i>
-                                <i class="arrow-down fas fa-caret-down"></i>
-                            </div>
+
+                    <th class="large-col">
+                        <p class="common-text-look header-text-position">PARTICIPANT</p>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
                         </div>
                     </th>
-                    <th>
-                        <div class="header-pos">
-                            <p class="header-text">URL TOKEN</p>
-                            <div class="spinner">
-                                <i class="arrow-up fas fa-caret-up"></i>
-                                <i class="arrow-down fas fa-caret-down"></i>
-                            </div>
+
+                    <th class="large-col">
+                        <p class="common-text-look header-text-position">URL TOKEN</p>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
                         </div>
                     </th>
-                    <th>
-                        <div class="header-pos">
-                            <p class="header-text">TIME TAKEN</p>
-                            <div class="spinner">
-                                <i class="arrow-up fas fa-caret-up"></i>
-                                <i class="arrow-down fas fa-caret-down"></i>
-                            </div>
+
+                    <th class="large-col">
+                        <p class="common-text-look header-text-position">TIME TAKEN</p>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
                         </div>
                     </th>
-                    <th>
-                        <div class="header-pos">
-                            <p class="header-text">QUESTIONS</p>
-                            <div class="spinner">
-                                <i class="arrow-up fas fa-caret-up"></i>
-                                <i class="arrow-down fas fa-caret-down"></i>
-                            </div>
+
+                    <th class="large-col">
+                        <p class="common-text-look header-text-position">QUESTIONS</p>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
                         </div>
                     </th>
-                    <th>
-                        <div class="header-pos">
-                            <p class="header-multiline-text">CARDS SORTED</p>
-                            <div class="spinner">
-                                <i class="arrow-up fas fa-caret-up"></i>
-                                <i class="arrow-down fas fa-caret-down"></i>
-                            </div>
+
+                    <th class="large-col">
+                        <p class="common-text-look">CARDS SORTED</p>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
                         </div>
                     </th>
-                    <th>
-                        <div class="header-pos">
-                            <p class="header-multiline-text">CATEGORIES CREATED</p>
-                            <div class="spinner">
-                                <i class="arrow-up fas fa-caret-up"></i>
-                                <i class="arrow-down fas fa-caret-down"></i>
-                            </div>
-                    </th>
-                    <th>
-                        <div class="header-pos">
-                            <p class="header-multiline-text">CATEGORIES NAMED</p>
-                            <div class="spinner">
-                                <i class="arrow-up fas fa-caret-up"></i>
-                                <i class="arrow-down fas fa-caret-down"></i>
-                            </div>
+
+                    <th class="large-col">
+                        <p class="common-text-look">CATEGORIES CREATED</p>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
                         </div>
                     </th>
-                    <th>
-                        <div class="header-pos">
-                            <p class="header-text">COMMENTS</p>
-                            <div class="spinner">
-                                <i class="arrow-up fas fa-caret-up"></i>
-                                <i class="arrow-down fas fa-caret-down"></i>
-                            </div>
+                    <th class="large-col">
+                        <p class="common-text-look">CATEGORIES NAMED</p>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
                         </div>
                     </th>
-                    <th>
-                        <div class="header-pos">
-                            <p class="header-text">INCLUDE</p>
-                            <div class="spinner">
-                                <i class="arrow-up fas fa-caret-up"></i>
-                                <i class="arrow-down fas fa-caret-down"></i>
-                            </div>
+
+                    <th class="large-col">
+                        <p class="common-text-look header-text-position">COMMENTS</p>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
                         </div>
                     </th>
-                    <th>
+                    
+                    <th class="large-col">
+                        <p class="common-text-look header-text-position">INCLUDE</p>
+                        <div class="spinner">
+                            <i class="arrow-up fas fa-caret-up fa-xs"></i>
+                            <i class="arrow-down fas fa-caret-down fa-xs"></i>
+                        </div>
+                    </th>
+
+                    <th class="small-col">
                         <div class="header-pos">
                         </div>
                     </th>
                 </tr>
 
                 <tr class="enabled-state">
-                    <td><input type="checkbox"></td>
-                    <td><p class="content-left">1</p></td>
-                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
-                    <td><p class="content-right">00:37:56</p></td>
-                    <td>
-                        <i class="content-right img-color fas fa-question-circle"></i>
+                    <td class="content-left">
+                        <input class="checkbox" type="checkbox" />
                     </td>
-                    <td><p class="content-right">100%</p></td>
-                    <td><p class="content-right">6</p></td>
-                    <td><p class="content-right">100%</p></td>
+                    <td class="content-left">1</td>
+                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
+                    <td>00:37:56</td>
+                    <td>
+                        <i class="img-color fas fa-question-circle"></i>
+                    </td>
+                    <td>100%</td>
+                    <td>6</td>
+                    <td>100%</td>
                     <td></td>
                     <td>
-                        <i class="content-right fas fa-toggle-on"></i>
+                        <div class="toggle">
+                            <div class="circle on"></div>
+                        </div>
                     </td>
                     <td>
-                        <i class="content-right img-color fab fa-bitbucket"></i>
+                        <i class="img-color far fa-trash-alt"></i>
                     </td>
                 </tr>
 
                 <tr class="enabled-state">
-                    <td><input type="checkbox"></td>
-                    <td><p class="content-left">2</p></td>
-                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
-                    <td><p class="content-right">00:06:55</p></td>
-                    <td>
-                        <i class="content-right img-color fas fa-question-circle"></i>
+                    <td class="content-left">
+                        <input class="checkbox" type="checkbox" />
                     </td>
-                    <td><p class="content-right">100%</p></td>
-                    <td><p class="content-right">3</p></td>
-                    <td><p class="content-right">100%</p></td>
+                    <td class="content-left">2</td>
+                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
+                    <td>00:06:55</td>
+                    <td>
+                        <i class="img-color fas fa-question-circle"></i>
+                    </td>
+                    <td>100%</td>
+                    <td>3</td>
+                    <td>100%</td>
                     <td></td>
                     <td>
-                        <i class="content-right fas fa-toggle-on"></i>
+                        <div class="toggle">
+                            <div class="circle on"></div>
+                        </div>
                     </td>
                      <td>    
-                        <i class="content-right img-color fab fa-bitbucket"></i>
+                        <i class="img-color far fa-trash-alt"></i>
                     </td>
                 </tr>
 
                 <tr class="disabled-state">
-                    <td><input type="checkbox"></td>
-                    <td><p class="content-left">3</p></td>
-                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
-                    <td><p class="content-right">Abandoned</p></td>
-                    <td>
-                        <i class="content-right img-color fas fa-question-circle"></i>
+                    <td class="content-left">
+                        <input class="checkbox" type="checkbox" />
                     </td>
-                    <td><p class="content-right">0%</p></td>
-                    <td><p class="content-right">0</p></td>
-                    <td><p class="content-right">0%</p></td>
+                    <td class="content-left">3</td>
+                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
+                    <td>Abandoned</td>
+                    <td>
+                        <i class="img-color fas fa-question-circle"></i>
+                    </td>
+                    <td>0%</td>
+                    <td>0</td>
+                    <td>0%</td>
                     <td></td>
                     <td>
-                        <i class="content-right fas fa-toggle-off"></i>
+                        <div class="toggle">
+                            <div class="circle off"></div>
+                        </div>
                     </td>
                     <td>    
-                        <i class="content-right img-color fab fa-bitbucket"></i>
+                        <i class="img-color far fa-trash-alt"></i>
                     </td>
                 </tr>
 
                 <tr class="enabled-state">
-                    <td><input type="checkbox"></td>
-                    <td><p class="content-left">4</p></td>
-                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
-                    <td><p class="content-right">00:08:26</p></td>
-                    <td>
-                        <i class="content-right img-color fas fa-question-circle"></i>
+                    <td class="content-left">
+                        <input class="checkbox" type="checkbox" />
                     </td>
-                    <td><p class="content-right">100%</p></td>
-                    <td><p class="content-right">5</p></td>
-                    <td><p class="content-right">100%</p></td>
+                    <td class="content-left">4</td>
+                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
+                    <td class="content-right">00:08:26</td>
+                    <td class="content-right">
+                        <i class="img-color fas fa-question-circle"></i>
+                    </td>
+                    <td>100%</td>
+                    <td>5</td>
+                    <td>100%</td>
                     <td></td>
                     <td>
-                        <i class="content-right fas fa-toggle-on"></i>
+                        <div class="toggle">
+                            <div class="circle on"></div>
+                        </div>
                     </td>
                     <td>    
-                        <i class="content-right img-color fab fa-bitbucket"></i>
+                        <i class="img-color far fa-trash-alt"></i>
                     </td>
                 </tr>
 
                 <tr class="disabled-state">
-                    <td><input type="checkbox"></td>
-                    <td><p class="content-left">5</p></td>
-                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
-                    <td><p class="content-right">Abandoned</p></td>
-                    <td>
-                        <i class="content-right img-color fas fa-question-circle"></i>
+                    <td class="content-left">
+                        <input class="checkbox" type="checkbox" />
                     </td>
-                    <td><p class="content-right">0%</p></td>
-                    <td><p class="content-right">0</p></td>
-                    <td><p class="content-right">0%</p></td>
+                    <td class="content-left">5</td>
+                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
+                    <td>Abandoned</td>
+                    <td>
+                        <i class="img-color fas fa-question-circle"></i>
+                    </td>
+                    <td>0%</td>
+                    <td>0</td>
+                    <td>0%</td>
                     <td></td>
                     <td>
-                        <i class="content-right fas fa-toggle-off"></i>
+                        <div class="toggle">
+                            <div class="circle off"></div>
+                        </div>
                     </td>
                     <td>    
-                        <i class="content-right img-color fab fa-bitbucket"></i>
+                        <i class="img-color far fa-trash-alt"></i>
                     </td>
                 </tr>
 
                 <tr class="enabled-state">
-                    <td><input type="checkbox"></td>
-                    <td><p class="content-left">6</p></td>
-                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
-                    <td><p class="content-right">00:01:34</p></td>
-                    <td>
-                        <i class="content-right img-color fas fa-question-circle"></i>
+                    <td class="content-left">
+                        <input class="checkbox" type="checkbox" />
                     </td>
-                    <td><p class="content-right">100%</p></td>
-                    <td><p class="content-right">2</p></td>
-                    <td><p class="content-right">100%</p></td>
-                    <td></td>
+                    <td class="content-left">6</td>
+                    <td><p class="url-token-text">8kjghdighidfhghdfnvjdhfwukckj</p></td>
+                    <td>00:01:34</td>
                     <td>
-                        <i class="content-right fas fa-toggle-on"></i>
+                        <i class="img-color fas fa-question-circle"></i>
+                    </td>
+                    <td>100%</td>
+                    <td>2</td>
+                    <td>100%</td>
+                    <td></td>
+                    <td> 
+                        <div class="toggle">
+                            <div class="circle on"></div>
+                        </div>
                     </td>
                     <td>    
-                        <i class="content-right img-color fab fa-bitbucket"></i>
+                        <i class="img-color far fa-trash-alt"></i>
                     </td>
                 </tr>
             </table>
