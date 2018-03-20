@@ -12,40 +12,35 @@
             position: relative;
             top: 0;
             left: 0;
+            width: 28px;
+            height: 14px;
+            border: 1px solid black;
+            border-radius:12px;
         }
 
         .toggle::before{
             content:"";
             position:absolute;
-            top:50%;
-            left:0;
-
-            width: 28px;
-            height: 14px;
-            border: 1px solid black;
             background:transparent;
-            border-radius:12px;
         }
 
         .toggle::after {
             content:"";
             position:absolute;
-            top:50%;
-            left:0;
-
+            top: -1px;
             width: 15px;
             height: 15px;
             border-radius: 50%;
-            margin-top:0;
         }
 
         .toggle.on::after { 
             background: #a9c638;
-            left: 16px;
+            left: 15px;
         }
 
         .toggle.off::after{
             background: #af2d00;
+            left: 0px;
         }
 
         .spinner {
