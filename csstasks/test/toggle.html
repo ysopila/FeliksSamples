@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <style>
+            .toggle {
+                width: 64px;
+                height: 32px;
+                display: inline-block;
+                position: relative;
+            }
+            .toggle::before {
+                box-sizing: border-box;
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%/100%;
+                border: 1px solid grey;
+            }
+            .toggle::after {
+                box-sizing: content-box;
+                content: "";
+                position: absolute;
+                top: -1px;
+                left: -1px;
+                height: 100%;
+                width: 50%;
+                border-radius: 50%;
+                background: grey;
+                border: 1px solid grey;                
+            }
+            .toggle.off::before {
+                border-color: #af2d00;
+            }
+            .toggle.off::after {
+                background: #af2d00;
+                border-color:  #af2d00;
+            }
+            .toggle.on::before {
+                border-color:  #a9c638;
+            }
+            .toggle.on::after {
+                background: #a9c638;
+                border-color:  #a9c638;
+                left: auto;
+                right: -1px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="toggle"></div>
+        <div class="toggle on"></div>
+        <div class="toggle off"></div>
+    </body>
+</html>
