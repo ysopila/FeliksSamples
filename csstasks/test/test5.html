@@ -8,21 +8,18 @@
             height: 15px;
         }
 
-        .toggle{
+        .toggle {
             position: relative;
             top: 0;
             left: 0;
         }
 
-        .pos::before,
-        .pos::after {
+        .toggle::before{
             content:"";
             position:absolute;
             top:50%;
             left:0;
-        }
 
-        .shape::before {
             width: 28px;
             height: 14px;
             border: 1px solid black;
@@ -30,7 +27,12 @@
             border-radius:12px;
         }
 
-        .shape::after {
+        .toggle::after {
+            content:"";
+            position:absolute;
+            top:50%;
+            left:0;
+
             width: 15px;
             height: 15px;
             border-radius: 50%;
@@ -338,7 +340,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle pos shape on"/>
+                            <div class="toggle on"/>
                         </td>
                         <td class="center">
                             <i class="far fa-trash-alt"></i>
@@ -360,7 +362,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle pos shape on"/>
+                            <div class="toggle on"/>
                         </td >
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -382,7 +384,7 @@
                         <td>0%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle pos shape off"/>
+                            <div class="toggle off"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -404,7 +406,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle pos shape on"/>
+                            <div class="toggle on"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -426,7 +428,7 @@
                         <td>0%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle pos shape off"/>
+                            <div class="toggle off"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -448,7 +450,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center"> 
-                            <div class="toggle pos shape on"/>
+                            <div class="toggle on"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
