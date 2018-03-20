@@ -8,21 +8,21 @@
             height: 15px;
         }
 
-        .toggle-off{
+        .toggle{
             position: relative;
             top: 0;
             left: 0;
         }
 
-        .toggle-off::before,
-        .toggle-off::after {
+        .pos::before,
+        .pos::after {
             content:"";
             position:absolute;
             top:50%;
             left:0;
         }
 
-        .toggle-off::before {
+        .shape::before {
             width: 28px;
             height: 14px;
             border: 1px solid black;
@@ -30,46 +30,20 @@
             border-radius:12px;
         }
 
-        .toggle-off::after {
+        .shape::after {
             width: 15px;
             height: 15px;
             border-radius: 50%;
             margin-top:0;
-            background: #af2d00;
-            transform:rotate(-45deg);
         }
 
-        .toggle-on{
-            position: relative;
-            top: 0;
-            left: 0;
-        }
-
-        .toggle-on::before,
-        .toggle-on::after {
-            content:"";
-            position:absolute;
-            top:50%;
-            left:0;
-        }
-
-        .toggle-on::before {
-            width: 28px;
-            height: 14px;
-            border: 1px solid black;
-            background:transparent;
-            border-radius:12px;
-        }
-
-        .toggle-on::after {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            margin-top:0;
+        .on::after { 
             background: #a9c638;
-            transform:rotate(-45deg);
-            position: absolute;
             left: 16px;
+        }
+
+        .off::after{
+            background: #af2d00;
         }
 
         .spinner {
@@ -364,7 +338,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle-on"/>
+                            <div class="toggle pos shape on"/>
                         </td>
                         <td class="center">
                             <i class="far fa-trash-alt"></i>
@@ -386,7 +360,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle-on"/>
+                            <div class="toggle pos shape on"/>
                         </td >
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -408,7 +382,7 @@
                         <td>0%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle-off"/>
+                            <div class="toggle pos shape off"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -430,7 +404,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle-on"/>
+                            <div class="toggle pos shape on"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -452,7 +426,7 @@
                         <td>0%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle-off"/>
+                            <div class="toggle pos shape off"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -474,7 +448,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center"> 
-                            <div class="toggle-on"/>
+                            <div class="toggle pos shape on"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
