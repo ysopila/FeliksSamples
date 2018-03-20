@@ -8,31 +8,68 @@
             height: 15px;
         }
 
-        .toggle {
-            margin: 0 auto;
-            width: 28px;
-            height: 14px;
-            background: white;
-            border-radius: 40px;
-            border: 1px solid black;
+        .toggle-off{
+            position: relative;
+            top: 0;
+            left: 0;
         }
 
-        .toggle .circle{
+        .toggle-off::before,
+        .toggle-off::after {
+            content:"";
+            position:absolute;
+            top:50%;
+            left:0;
+        }
+
+        .toggle-off::before {
+            width: 28px;
+            height: 14px;
+            border: 1px solid black;
+            background:transparent;
+            border-radius:12px;
+        }
+
+        .toggle-off::after {
             width: 15px;
             height: 15px;
             border-radius: 50%;
-            position: relative;
-            top: -1px;
-        }
-
-        .toggle .off {
+            margin-top:0;
             background: #af2d00;
-            left: -1.5px;
+            transform:rotate(-45deg);
         }
 
-        .toggle .on {
-            right: -16px;
+        .toggle-on{
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        .toggle-on::before,
+        .toggle-on::after {
+            content:"";
+            position:absolute;
+            top:50%;
+            left:0;
+        }
+
+        .toggle-on::before {
+            width: 28px;
+            height: 14px;
+            border: 1px solid black;
+            background:transparent;
+            border-radius:12px;
+        }
+
+        .toggle-on::after {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-top:0;
             background: #a9c638;
+            transform:rotate(-45deg);
+            position: absolute;
+            left: 16px;
         }
 
         .spinner {
@@ -327,9 +364,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle">
-                                <div class="circle on"></div>
-                            </div>
+                            <div class="toggle-on"/>
                         </td>
                         <td class="center">
                             <i class="far fa-trash-alt"></i>
@@ -351,9 +386,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle">
-                                <div class="circle on"></div>
-                            </div>
+                            <div class="toggle-on"/>
                         </td >
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -375,9 +408,7 @@
                         <td>0%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle">
-                                <div class="circle off"></div>
-                            </div>
+                            <div class="toggle-off"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -399,9 +430,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle">
-                                <div class="circle on"></div>
-                            </div>
+                            <div class="toggle-on"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -423,9 +452,7 @@
                         <td>0%</td>
                         <td></td>
                         <td class="center">
-                            <div class="toggle">
-                                <div class="circle off"></div>
-                            </div>
+                            <div class="toggle-off"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
@@ -447,9 +474,7 @@
                         <td>100%</td>
                         <td></td>
                         <td class="center"> 
-                            <div class="toggle">
-                                <div class="circle on"></div>
-                            </div>
+                            <div class="toggle-on"/>
                         </td>
                         <td class="center">    
                             <i class="far fa-trash-alt"></i>
