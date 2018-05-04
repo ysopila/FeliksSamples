@@ -1,0 +1,42 @@
+$toggleOffColor: #af2d00;
+$toggleOnColor: #a9c638;
+$toggleBorderLook: 1px solid black;
+
+.toggle {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 28px;
+    height: 14px;
+    border: $toggleBorderLook;
+    border-radius:12px;
+
+    &:before{
+        content:"";
+        position:absolute;
+        background:transparent;
+    }
+
+    &:after {
+        content:"";
+        position:absolute;
+        top: -1px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+    }
+
+    &.on { 
+        &:after{
+            background: $toggleOnColor;
+            left: 15px;
+        }
+    }
+
+    &.off {
+        &:after{
+            background: $toggleOffColor;
+            left: 0px;
+        }
+    }
+}

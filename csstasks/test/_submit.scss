@@ -1,0 +1,11 @@
+$contentSubmitColor: mintcream;
+$contentBackgroundColor: #00ba9d;
+
+input[type=submit] {
+    border-radius: 5px;
+    border: none;
+    color: $contentSubmitColor;
+    background-color: $contentBackgroundColor;
+    width: 100%;
+    height: 40px;
+}

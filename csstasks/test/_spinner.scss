@@ -1,0 +1,24 @@
+$spinnerColor: grey;
+
+@mixin pos {
+    position: absolute;
+    left: 0;
+}
+
+.spinner {
+    position: relative;
+    color: $spinnerColor;
+    height: 12px;
+    width: 10px;
+    margin: 0;
+
+    .arrow-down {
+        @include pos;
+        top: 6px;
+    }
+
+    .arrow-up {
+        @include pos;
+        top: 0;
+    }
+}

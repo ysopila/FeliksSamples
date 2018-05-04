@@ -1,0 +1,16 @@
+$backgroundCloseColor: #d78198;
+$contentCloseColor: mintcream;
+
+.close {
+    padding-right: 10px;
+    font-size: 6px;
+    border-radius: 50%;
+    border: none;
+    right: 10px;
+    top: 5px;
+    position: absolute;
+    color: $contentCloseColor;
+    background-color: $backgroundCloseColor;
+    width: 15px;
+    height: 15px;
+}

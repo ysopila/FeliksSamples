@@ -1,0 +1,54 @@
+$flagBorder: 10px solid transparent;
+$flagShadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+$flagColor: #1cb094;
+$flagTriangleColor: white;
+$circleColor: white;
+
+.flag {
+    top: -60px;
+    left: 698px;
+    position: absolute;
+    width: 30px;
+    height: 20px;
+    background-color: $flagColor;
+
+    &:after {
+        content:"";
+        position: absolute;
+        border-bottom: $flagBorder;
+        border-right: 10px solid $flagTriangleColor;
+        border-top: $flagBorder;
+        margin-left: 20px;
+    }
+    
+    &:before {
+        content:"";
+        position: absolute;
+        width: 3px;
+        height: 60px;
+        background-color: $flagColor;
+        left: 0px;
+    }
+}
+
+.circle {
+    top:37px;
+    left: 695px;
+    margin: 0px;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: $circleColor;
+    box-shadow: $flagShadow;
+
+    &:after {
+        content:"";
+        position: absolute;
+        width: 3px;
+        height: 40px;
+        background-color: $circleColor;
+        top: -37px;
+        left: 3.2px;
+    }
+}

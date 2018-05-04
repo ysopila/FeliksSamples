@@ -1,0 +1,149 @@
+$tablet: "(min-width: 720px) and (max-width: 1024px)";
+$mobile: "(max-width: 720px)";
+
+$footerColor: #fb2600;
+$leftPaneColor: #f9770b;
+$rightPaneColor: #337807;
+$headerPaneColor: yellow;
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+  
+.text {
+    text-align: center;
+}
+    
+.pane-container {
+    top: 200px;
+    bottom: 100px;
+    position: fixed;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.block-border {
+    border: 1px solid black;
+
+    &.container {
+        margin: 0 auto;
+    }
+    
+    &.common-header-footer {
+        position: fixed;
+        width: 100%;
+    }
+
+    &.scrollable-block {
+        box-sizing: border-box;
+        height: 100%;
+        overflow-y:auto;
+
+        &.block-left-pane {
+            background-color: $leftPaneColor;  
+        }
+    
+        &.block-right-pane {
+            background-color: $rightPaneColor;  
+        }
+    
+        &.block-content-pane {
+            background-color: #e9f6a4;  
+        }
+
+    }
+}
+
+.common-header-footer {
+    &.header { 
+        background-color: $headerPaneColor;
+        height: 200px;
+        top: 0;
+    }
+
+    &.footer { 
+        background-color: $footerColor;
+        height: 100px;
+        bottom: 0;
+    }
+
+    @media #{$tablet} {
+        &.header { 
+            background-color: $headerPaneColor;
+            height: 200px;
+            top: 0;
+        }
+    
+        &.footer { 
+            background-color: $footerColor;
+            height: 100px;
+            width: 100%;
+            bottom: 0;
+        }
+    }
+
+    @media #{$mobile} {
+        &.header { 
+            background-color: $headerPaneColor;
+            height: 200px;
+            top: 0;
+        }
+    
+        &.footer { 
+            background-color: $footerColor;
+            height: 100px;
+            width: 100%;
+            bottom: 0;
+        }
+    }
+}
+
+.left-pane-container { 
+    float: left;
+    width: 200px;
+    height: 100%;
+    padding-right: 5px;
+
+    @media #{$tablet} {
+        float: left;
+        width: 34%;
+        height: 50%;
+        padding-right:5px;
+    }
+
+    @media #{$mobile} {
+        height: 25%;
+        padding-bottom: 5px;
+    }
+}
+
+.right-pane-container {
+    float: right;
+    width: 200px;
+    height: 100%;
+    padding-left: 5px;
+
+    @media #{$tablet} {
+        width: 66%;
+        height: 50%;
+    }
+
+    @media #{$mobile} {
+        height: 25%;
+        padding-bottom: 5px;
+    }
+}
+
+.content-pane-container { 
+    height: 100%;
+
+    @media #{$tablet} {
+        height: 50%;
+        padding-top: 5px;
+    }
+
+    @media #{$mobile} {
+        height: 50%;
+    }
+}
