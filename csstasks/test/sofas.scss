@@ -1,7 +1,30 @@
-$mainColor: #45545f;
-$quick-view-color: $mainColor;
+$main-color: #45545f;
+$quick-view-color: $main-color;
 $add-car-color: #79b93e;
-$main-border-line: 1px solid $mainColor;
+$main-border-line: 1px solid $main-color;
+
+@mixin checkbox-look{
+    input {
+        display: none;
+    }
+    
+    span {
+        top: 1px;
+        height: 9px;
+        width: 9px;
+        margin-right: 3px;
+        border: 1px solid $main-color;
+        display: inline-block;
+        position: relative;
+    }
+        
+    [type=checkbox]:checked + span:before {
+        content: '\2714';
+        position: absolute;
+        top: -5px;
+        left: 0;
+    }
+};
 
 * {
     box-sizing: border-box;
@@ -10,16 +33,69 @@ $main-border-line: 1px solid $mainColor;
         family: Arial, Helvetica, sans-serif;
         size: 12px;
     }
-    color: $mainColor;
+    color: $main-color;
 }
 
 table {
-    padding: 0px;
+    border-collapse: collapse;
+    margin: 15px 0px 0px 0px;
     width: 100%;
     position: relative;
 
     td {
         padding: 0;
+
+        &.left{
+            padding-right: 15px;
+        }
+        
+        &.right{
+            padding-left: 15px;
+        }
+
+        .product-item {
+            width: 100%;
+            border-bottom: 1px solid $main-color;
+            padding: 0px 0px 15px 0px;
+            margin: 0px 0px 20px 0px;
+        
+            .product-picture {
+                width: 100%;
+                height: 250px;
+                background: lightblue;
+            }
+            
+            .product-info {
+                text-align: center;
+                padding: 8px 0px 8px 0px;
+            }
+            
+            .status {
+                text-align: center;
+                position: absolute;
+                width: 10%;
+                padding: 3px 0px 3px 0px;
+                background-color: $main-color;
+                color: white;
+            }
+
+            .color-chooser {
+                margin: auto;
+                width: 18px;
+                height: 18px;
+                border: 0.5px solid $main-color;
+            
+                .fill-square{
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    position: relative;
+                    width: 12px;
+                    height: 12px;
+                    background-color: black;
+                }
+            }
+        }
     }
 }
 
@@ -28,6 +104,7 @@ table {
     width: 50%;
 
     .nav {
+        padding: 0px 15px 0px 15px;
         top: 0;
         width: 100%;
         height: 28px;
@@ -36,38 +113,46 @@ table {
     
         >a {
             float: left;
-            color: #455660;
+            position: relative;
+            top: 5px;
+            color: $main-color;
             margin: 0px 20px 0px 20px;
-            padding: 5px 0px 5px 0px;
+            padding: 3px 0px 3px 0px;
+            text-decoration: none;
     
             &.selected {
-                border-bottom: 2.5px solid $mainColor;
+                border-bottom: 2.5px solid $main-color;
             }
-            
         }
     }
 
     .path {
-        font-size: 20px;
         float: left;
         width: 100%;
-        padding: 15px 0px 15px 0px;
+        padding: 20px 0px 20px 15px;
     
         .item {
             float: left;
-            color: $mainColor;
-            padding-right: 15px;
+            color: $main-color;
+            padding-right: 12px;
     
             &.borderline {
-                padding-left: 15px;
+                font-size: 10px;
+                padding-left: 12px;
                 border-left: $main-border-line;
             }    
         }
     }
     
     .aside {
+        @mixin list-item-view{
+            margin: 0;
+            list-style-type: none;
+        }
+
         float: left;
         width: 20%;
+        padding-left: 15px;
 
         .category-item {
             width: 100%;
@@ -76,7 +161,35 @@ table {
         
             .icon {
                 float: right;
-                color: $mainColor
+                color: $main-color
+            }
+
+            > ul {
+                @include list-item-view;
+                padding: 5px 0px 0px 0px;
+
+                li {
+                    padding: 5px 0px 5px 0px;
+    
+                    > .price-item {
+                        font-size: 12px;
+                        @include checkbox-look;
+                    }   
+                }
+            }
+        }
+
+        ul {
+            @include list-item-view();
+            padding: 0px 0px 30px 0px;
+
+            &.inner-product-menu{
+                padding: 0px 0px 0px 15px;
+            }
+
+            > li {
+                font-family: 10px;
+                padding: 5px 0px 5px 0px;
             }
         }
     }
@@ -93,15 +206,21 @@ table {
 
         .title-picture {
             width: 100%;
-            height: 200px;
+            height: 185px;
             background: lightblue;
         }
 
         .title-description {
+            line-height: 20px;
             padding: 15px 0px 15px 0px;
         }
 
         .sort-section {
+            width: 100%;
+            position: relative;
+            height: 60px;
+            padding: 20px 0px 20px 0;
+
             > p {
                 padding: 5px 15px 0px 0px;
                 float: right;
@@ -118,81 +237,9 @@ table {
     }
 }
 
-.product-item {
-    border-bottom: 1px solid $mainColor;
-    padding: 0px 0px 15px 0px;
-    margin: 0px 0px 20px 0px;
-
-    &.left{
-        margin-right: 15px;
-    }
-    
-    &.right{
-        margin-left: 15px;
-    }
-}
-
-.product-picture {
-    width: 100%;
-    height: 280px;
-    background: lightblue;
-}
-
-.product-info {
-    text-align: center;
-    padding: 8px 0px 8px 0px;
-}
-
-.status {
-    text-align: center;
-    position: absolute;
-    width: 10%;
-    padding: 3px 0px 3px 0px;
-    background-color: $mainColor;
-    color: white;
-}
-
-.sort-section {
-    width: 100%;
-    position: relative;
-    height: 60px;
-    padding: 15px 0px 15px 0;
-}
-
 p {
     margin: 0px;
 }
-
-.color-chooser {
-    margin: auto;
-    padding: 1px;
-    width: 15px;
-    height: 15px;
-    border: $main-border-line;
-
-    .x1{
-        width: 10px;
-        height: 10px;
-        background-color: violet;
-    }
-}
-
-@mixin checkbox-look{
-    > .cb {
-        margin: 0;
-        position: relative;
-        top: 3px;
-    
-        &:before {
-            display: block;
-            width: 10px;
-            height: 10px;
-            border: $main-border-line;
-            content: "";
-            background: #FFF;
-        }
-    }
-};
 
 .control {
     @mixin button-look($bg){
@@ -212,7 +259,8 @@ p {
 
         .icon{
             color: white;
-            background-color: $mainColor;
+            margin-right: 5px;
+            background-color: $main-color;
         }
     }
     
@@ -220,28 +268,22 @@ p {
         @include button-look($add-car-color);
     }
 
-    > .compare-item-container {
+    .compare-item-container {
         float: left;
         width: 49%;
         border-right: $main-border-line;
 
         .compare-item {
             font-size: 10px;
+
             @include checkbox-look;
         }    
     }
 
-    > .add-wishlist {
+    .add-wishlist {
         font-size: 10px;
         position: relative;
         right: -7px;
-    
-        > .add-wishlist-cb {
-            padding: 0;
-            margin: 0;
-            position: relative;
-            top: 3px;
-        }
     
         input[type="checkbox"],
         .checked {
@@ -250,20 +292,4 @@ p {
     }
 }
 
-ul {
-    padding: 0;
-    list-style-type: none;
-}
 
-li {
-    padding: 5px 0px 5px 0px;
-}
-
-.inner-product-menu{
-    padding-left: 15px;
-}
-
-.price-item {
-    font-size: 12px;
-    @include checkbox-look;
-}   
