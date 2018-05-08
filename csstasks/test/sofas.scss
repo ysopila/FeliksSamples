@@ -33,67 +33,92 @@ $main-border-line: 1px solid $main-color;
     color: $main-color;
 }
 
-table {
-    border-collapse: collapse;
-    margin: 10px 0px 0px 0px;
+.product-list {
+    padding: 10px 0px 0px 0px;
     width: 100%;
     position: relative;
-    td {
-        padding: 0;
-        width: 30%;
-        &.left {
-            padding-right: 13px;
-        }
-        &.center {
-            padding: 0px 6.5px 0px 6.5px;
-        }
-        &.right {
-            padding-left: 13px;
-        }
-        .product-item {
-            width: 100%;
-            border-bottom: 1px solid $main-color;
-            padding: 0px 0px 5px 0px;
-            margin: 0px 0px 20px 0px;
-            .product-picture {
-                width: 100%;
-                height: 190px;
-                background: lightblue;
 
-                display:table-cell; 
-                vertical-align:middle; 
-                text-align:center;
+    .product-container{
+            
+            &.left {
+                padding: 0 13px 15px 0;
             }
-            .product-info {
-                height: 20px;
-                text-align: center;
-                padding: 5px 0px 5px 0px;
+            &.center {
+                padding: 0 6.5px 15px 6.5px;
             }
-            .status {
-                font-size: 8px;
-                text-align: center;
-                position: absolute;
-                width: 13%;
-                padding: 5px 0px 5px 0px;
-                background-color: $main-color;
-                color: white;
+            &.right {
+                padding: 0 0 15px 13px;
             }
-            .color-chooser {
-                margin: 17px auto 10px auto;
-                width: 20px;
-                height: 20px;
-                border: 0.5px solid #cad3d9;
-                .fill-square {
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    position: relative;
-                    width: 15px;
-                    height: 15px;
-                    background-color: black;
+
+            @media screen and (max-width: 767px)
+            {
+                &.left {
+                    padding: 0;
+                }
+                &.center {
+                    padding: 0;
+                }
+                &.right {
+                    padding: 0;
+                }
+
+                width: 50%;
+
+                &.left1 {
+                    padding: 0 15px 15px 0;
+                }
+                &.right1 {
+                    padding: 0 0 15px 15px;
+                }
+
+            }
+
+            width: 33.33%;
+            float: left;
+
+            .product-item {
+                width: 100%;
+                border-bottom: 1px solid $main-color;
+        
+                .product-picture {
+                    width: 100%;
+                    height: 190px;
+                    background: lightblue;
+        
+                    display:table-cell; 
+                    vertical-align:middle; 
+                    text-align:center;
+                }
+                .product-info {
+                    height: 20px;
+                    text-align: center;
+                    padding: 5px 0px 5px 0px;
+                }
+                .status {
+                    font-size: 8px;
+                    text-align: center;
+                    position: absolute;
+                    width: 13%;
+                    padding: 5px 0px 5px 0px;
+                    background-color: $main-color;
+                    color: white;
+                }
+                .color-chooser {
+                    margin: 17px auto 10px auto;
+                    width: 20px;
+                    height: 20px;
+                    border: 0.5px solid #cad3d9;
+                    .fill-square {
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        position: relative;
+                        width: 15px;
+                        height: 15px;
+                        background-color: black;
+                    }
                 }
             }
-        }
     }
 }
 
@@ -106,8 +131,8 @@ img{
 
 .container {
     margin: auto;
-    width: 44%;
-    min-width: 830px;
+    width: 830px;
+    min-width: 767px;
     .nav {
         padding: 0px 15px 0px 15px;
         top: 0;
