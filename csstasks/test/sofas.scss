@@ -2,14 +2,12 @@ $main-color: #45545f;
 $quick-view-color: $main-color;
 $add-car-color: #79b93e;
 $main-border-line: 1px solid $main-color;
-
-@mixin checkbox-look{
+@mixin checkbox-look {
     input {
         display: none;
     }
-    
     span {
-        top: 1px;
+        top: 0.5px;
         height: 9px;
         width: 9px;
         margin-right: 3px;
@@ -17,81 +15,80 @@ $main-border-line: 1px solid $main-color;
         display: inline-block;
         position: relative;
     }
-        
-    [type=checkbox]:checked + span:before {
+    [type=checkbox]:checked+span:before {
         content: '\2714';
         position: absolute;
         top: -5px;
         left: 0;
     }
-};
+}
 
 * {
     box-sizing: border-box;
     background-color: #fff;
     font: {
         family: Arial, Helvetica, sans-serif;
-        size: 12px;
+        size: 10px;
     }
     color: $main-color;
 }
 
 table {
     border-collapse: collapse;
-    margin: 15px 0px 0px 0px;
+    margin: 30px 0px 0px 0px;
     width: 100%;
     position: relative;
-
     td {
         padding: 0;
-
-        &.left{
-            padding-right: 15px;
+        width: 30%;
+        &.left {
+            padding-right: 13px;
         }
-        
-        &.right{
-            padding-left: 15px;
+        &.center {
+            padding: 0px 6.5px 0px 6.5px;
         }
-
+        &.right {
+            padding-left: 13px;
+        }
         .product-item {
             width: 100%;
             border-bottom: 1px solid $main-color;
-            padding: 0px 0px 15px 0px;
+            padding: 0px 0px 10px 0px;
             margin: 0px 0px 20px 0px;
-        
             .product-picture {
                 width: 100%;
-                height: 250px;
+                height: 190px;
                 background: lightblue;
+
+                display:table-cell; 
+                vertical-align:middle; 
+                text-align:center;
             }
-            
             .product-info {
+                height: 20px;
                 text-align: center;
-                padding: 8px 0px 8px 0px;
+                padding: 5px 0px 5px 0px;
             }
-            
             .status {
                 text-align: center;
                 position: absolute;
-                width: 10%;
+                width: 13%;
                 padding: 3px 0px 3px 0px;
                 background-color: $main-color;
                 color: white;
             }
-
             .color-chooser {
-                margin: auto;
-                width: 18px;
-                height: 18px;
-                border: 0.5px solid $main-color;
-            
-                .fill-square{
+                margin: 17px auto 10px auto;
+                width: 20px;
+                height: 20px;
+                border: 0.5px solid #cad3d9;
+                .fill-square {
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
                     position: relative;
-                    width: 12px;
-                    height: 12px;
+                    width: 15px;
+                    height: 15px;
                     background-color: black;
                 }
             }
@@ -99,133 +96,122 @@ table {
     }
 }
 
+img{
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+}
+
 .container {
     margin: auto;
-    width: 50%;
-
+    width: 44%;
     .nav {
         padding: 0px 15px 0px 15px;
         top: 0;
         width: 100%;
-        height: 28px;
+        height: 30px;
         position: relative;
         border-bottom: $main-border-line;
-    
         >a {
             float: left;
             position: relative;
             top: 5px;
             color: $main-color;
             margin: 0px 20px 0px 20px;
-            padding: 3px 0px 3px 0px;
+            padding: 5px 0px 5px 0px;
             text-decoration: none;
-    
             &.selected {
                 border-bottom: 2.5px solid $main-color;
             }
         }
     }
-
     .path {
         float: left;
         width: 100%;
         padding: 20px 0px 20px 15px;
-    
         .item {
             float: left;
             color: $main-color;
             padding-right: 12px;
-    
             &.borderline {
                 font-size: 10px;
                 padding-left: 12px;
                 border-left: $main-border-line;
-            }    
+            }
         }
     }
-    
     .aside {
-        @mixin list-item-view{
+        @mixin list-item-view {
             margin: 0;
             list-style-type: none;
         }
-
         float: left;
         width: 20%;
         padding-left: 15px;
-
         .category-item {
             width: 100%;
             border-bottom: 1px solid #455660;
             padding: 10px 5px 10px 0px;
-        
             .icon {
                 float: right;
                 color: $main-color
             }
-
-            > ul {
+            >ul {
                 @include list-item-view;
                 padding: 5px 0px 0px 0px;
-
                 li {
                     padding: 5px 0px 5px 0px;
-    
-                    > .price-item {
-                        font-size: 12px;
+                    >.price-item {
+                        font-size: 10px;
                         @include checkbox-look;
-                    }   
+                    }
                 }
             }
+            &.bold {
+                font-weight: bold;
+            }
         }
-
         ul {
             @include list-item-view();
-            padding: 0px 0px 30px 0px;
-
-            &.inner-product-menu{
-                padding: 0px 0px 0px 15px;
+            padding: 0px 0px 25px 0px;
+            &.inner-product-menu {
+                padding: 0px 0px 0px 10px;
             }
-
-            > li {
+            >li {
                 font-family: 10px;
-                padding: 5px 0px 5px 0px;
+                padding: 4px 0px 4px 0px;
             }
         }
     }
-    
     .content {
-        padding-left: 30px;
+        padding: 0px 40px 0px 40px;
         float: left;
         width: 80%;
-
         .title {
-            font-size: 14px;
-            padding: 10px 0px 10px 0px;
+            font-weight: bolder;
+            font-size: 16px;
+            padding: 10px 0px 8px 0px;
         }
-
         .title-picture {
             width: 100%;
-            height: 185px;
+            height: 130px;
             background: lightblue;
         }
-
         .title-description {
-            line-height: 20px;
+            font-size: 12px;
+            line-height: 15px;
             padding: 15px 0px 15px 0px;
         }
-
         .sort-section {
             width: 100%;
             position: relative;
             height: 60px;
-            padding: 20px 0px 20px 0;
-
-            > p {
-                padding: 5px 15px 0px 0px;
+            padding: 15px 0px 25px 0;
+            >p {
+                padding: 8px 10px 0px 0px;
                 float: right;
             }
-        
             .sort-chooser {
                 float: right;
                 height: 25px;
@@ -242,54 +228,58 @@ p {
 }
 
 .control {
-    @mixin button-look($bg){
-        font-size: 10px;
-        width: 49%;
+    @mixin button-look($bg) {
+        font-size: 8px;
         padding: 10px 15px;
         border: 0px;
         color: #fff;
         background: $bg;
     }
 
+    @mixin button-container-look{
+        float: left;
+        width: 50%;
+    }
     padding: 5px 0px 0px 0px;
     width: 100%;
-
+    height: 35px;
+    .quick-view-container{
+        @include button-container-look;
+        padding: 0px 1px 0px 0px;
+    }
+    .add-wishlist-container{
+        @include button-container-look;
+        padding: 0px 0px 0px 1px;
+    }
     .quick-view {
+        float: left;
         @include button-look($quick-view-color);
-
-        .icon{
+        .icon {
             color: white;
-            margin-right: 5px;
             background-color: $main-color;
         }
     }
-    
     .add-cart {
+        float: left;
         @include button-look($add-car-color);
     }
-
     .compare-item-container {
+        padding: 0;
         float: left;
-        width: 49%;
-        border-right: $main-border-line;
-
+        width: 49.5%;
+        border-right: 1px solid #cad3d9;
         .compare-item {
-            font-size: 10px;
-
+            font-size: 8px;
             @include checkbox-look;
-        }    
+        }
     }
-
     .add-wishlist {
-        font-size: 10px;
+        font-size: 8px;
         position: relative;
-        right: -7px;
-    
+        right: -5px;
         input[type="checkbox"],
         .checked {
             display: none;
         }
     }
 }
-
-
