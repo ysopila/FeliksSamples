@@ -10,7 +10,7 @@ $main-border-line: 1px solid $main-color;
         top: 0.5px;
         height: 9px;
         width: 9px;
-        margin-right: 3px;
+        margin-right: 2px;
         border: 1px solid $main-color;
         display: inline-block;
         position: relative;
@@ -35,7 +35,7 @@ $main-border-line: 1px solid $main-color;
 
 table {
     border-collapse: collapse;
-    margin: 30px 0px 0px 0px;
+    margin: 10px 0px 0px 0px;
     width: 100%;
     position: relative;
     td {
@@ -53,7 +53,7 @@ table {
         .product-item {
             width: 100%;
             border-bottom: 1px solid $main-color;
-            padding: 0px 0px 10px 0px;
+            padding: 0px 0px 5px 0px;
             margin: 0px 0px 20px 0px;
             .product-picture {
                 width: 100%;
@@ -70,10 +70,11 @@ table {
                 padding: 5px 0px 5px 0px;
             }
             .status {
+                font-size: 8px;
                 text-align: center;
                 position: absolute;
                 width: 13%;
-                padding: 3px 0px 3px 0px;
+                padding: 5px 0px 5px 0px;
                 background-color: $main-color;
                 color: white;
             }
@@ -132,11 +133,11 @@ img{
         width: 100%;
         padding: 20px 0px 20px 15px;
         .item {
+            font-size: 8px;
             float: left;
             color: $main-color;
-            padding-right: 12px;
+            padding-right: 10px;
             &.borderline {
-                font-size: 10px;
                 padding-left: 12px;
                 border-left: $main-border-line;
             }
@@ -162,7 +163,7 @@ img{
                 @include list-item-view;
                 padding: 5px 0px 0px 0px;
                 li {
-                    padding: 5px 0px 5px 0px;
+                    padding: 4px 0px 4px 0px;
                     >.price-item {
                         font-size: 10px;
                         @include checkbox-look;
@@ -177,7 +178,7 @@ img{
             @include list-item-view();
             padding: 0px 0px 25px 0px;
             &.inner-product-menu {
-                padding: 0px 0px 0px 10px;
+                padding: 5px 0px 0px 10px;
             }
             >li {
                 font-family: 10px;
@@ -186,31 +187,31 @@ img{
         }
     }
     .content {
-        padding: 0px 40px 0px 40px;
+        padding: 0px 35px 0px 35px;
         float: left;
         width: 80%;
         .title {
-            font-weight: bolder;
-            font-size: 16px;
+            font-weight: 500;
+            font-size: 20px;
             padding: 10px 0px 8px 0px;
         }
         .title-picture {
             width: 100%;
-            height: 130px;
+            height: 145px;
             background: lightblue;
         }
         .title-description {
             font-size: 12px;
-            line-height: 15px;
+            line-height: 17.5px;
             padding: 15px 0px 15px 0px;
         }
         .sort-section {
             width: 100%;
             position: relative;
             height: 60px;
-            padding: 15px 0px 25px 0;
+            padding: 5px 0 0 0;
             >p {
-                padding: 8px 10px 0px 0px;
+                padding: 8px 10px 0 0;
                 float: right;
             }
             .sort-chooser {
@@ -230,6 +231,7 @@ p {
 
 .control {
     @mixin button-look($bg) {
+        width: 100%;
         font-size: 8px;
         padding: 10px 15px;
         border: 0px;
@@ -246,11 +248,11 @@ p {
     height: 35px;
     .quick-view-container{
         @include button-container-look;
-        padding: 0px 1px 0px 0px;
+        padding: 0px 2px 0px 0px;
     }
     .add-wishlist-container{
         @include button-container-look;
-        padding: 0px 0px 0px 1px;
+        padding: 0px 0px 0px 2px;
     }
     .quick-view {
         float: left;
