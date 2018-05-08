@@ -64,7 +64,8 @@ img {
 
 .container {
   margin: auto;
-  width: 44%; }
+  width: 44%;
+  min-width: 830px; }
 .container .nav {
   padding: 0px 15px 0px 15px;
   top: 0;
@@ -194,6 +195,7 @@ p {
   background: #45545f; }
 .control .quick-view .icon {
   color: white;
+  padding-right: 2.5px;
   background-color: #45545f; }
 .control .add-cart {
   float: left;
