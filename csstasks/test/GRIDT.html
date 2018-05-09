@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        .container{
+            width: 100%;
+            max-width: 1200px;
+            background-color: red;
+            height: 800px;
+            margin: 0 auto;
+        }
+        .item{
+            float: left;
+                height: 270px;
+                background-color: green;
+                border: 2px solid black;
+        }
+        @media screen and (min-width: 767px) and (max-width: 900px)  {
+           .item{ 
+               width: calc(100%/3);
+            }
+        }
+
+        @media screen and (min-width: 480px) and (max-width: 767px)  {
+           .item{ 
+               width: 50%;
+            }
+        }
+
+        @media screen and (min-width: 240px) and (max-width: 480px)  {
+           .item{ 
+               width: 100%;
+            }
+        }
+        @media screen and (min-width: 900px)  {
+            .item{
+                width: 25%;
+            }
+        }
+
+    </style>
+  </head>
+  <body>
+    	<div class="container">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+            <div class="item">11</div>
+            <div class="item">12</div>
+        </div>    
+  </body>
+</html>
