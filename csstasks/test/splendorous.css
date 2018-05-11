@@ -20,10 +20,8 @@ p {
 
 .main {
   width: 1000px;
-  height: 1935px;
   padding: 0;
-  margin: 0 auto;
-  position: relative; }
+  margin: 0 auto; }
   .main header {
     width: 100%;
     height: 95px;
@@ -52,9 +50,7 @@ p {
           background-color: #7e5c88; }
   .main footer {
     width: 100%;
-    height: 50px;
-    bottom: 0;
-    position: absolute; }
+    height: 50px; }
     .main footer .copyright {
       float: left;
       padding: 20px 0 20px 20px; }
@@ -62,13 +58,12 @@ p {
       float: right;
       padding: 20px 20px 20px 0; }
   .main section {
-    position: absolute;
-    width: 100%;
-    height: 1785px; }
+    width: 100%; }
     .main section .carusel {
       width: 100%;
       height: 530px;
-      border-bottom: 1px solid #e0e0e0; }
+      border-bottom: 1px solid #e0e0e0;
+      display: inline-block; }
       .main section .carusel .arrow {
         height: 100%;
         float: left;

@@ -1,5 +1,4 @@
 $full-width: 1000px;
-$section-height: 1785px;
 $logo-font-title-size:32px;
 $element-color: #e0e0e0;
 $border-line: 1px solid $element-color;
@@ -9,7 +8,6 @@ $pic-color: #333333;
 $section-title-size: 16px;
 $main-color: #7e5c88;
 $logo-width: 327px;
-$full-height: 1935px;
 $footer-height: 50px;
 $header-height: 95px;
 $circle-border: 25px solid $main-color;
@@ -55,10 +53,8 @@ p {
 
 .main {
     width: $full-width;
-    height: $full-height;
     padding: 0;
     margin: 0 auto;
-    position: relative;
     header {
         width: 100%;
         height: $header-height;
@@ -95,8 +91,6 @@ p {
     footer {
         width: 100%;
         height: $footer-height;
-        bottom: 0;
-        position: absolute;
         .copyright {
             float: left;
             padding: 20px 0 20px 20px;
@@ -107,9 +101,7 @@ p {
         }
     }
     section {
-        position: absolute;
         width: 100%;
-        height: $section-height;
         @mixin column-look {
             float: left;
             width: 25%;
@@ -118,6 +110,7 @@ p {
             width: 100%;
             height: $carousel;
             border-bottom: $border-line;
+            display: inline-block;
             .arrow {
                 height: 100%;
                 float: left;
