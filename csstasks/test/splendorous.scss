@@ -95,7 +95,8 @@ p {
     footer {
         width: 100%;
         height: $footer-height;
-
+        bottom: 0;
+        position: absolute;
         .copyright {
             float: left;
             padding: 20px 0 20px 20px;
@@ -106,6 +107,7 @@ p {
         }
     }
     section {
+        position: absolute;
         width: 100%;
         height: $section-height;
         @mixin column-look {
