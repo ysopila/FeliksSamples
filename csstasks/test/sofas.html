@@ -2,6 +2,63 @@
 <html>
 
     <head>
+        <script src="jquery.js"></script>
+        <script src="test-plugin.js"></script>
+        <script>
+            $(document).ready(function() {
+
+                $.fn.changeColor = function() {
+                    this.css( "color", "green" );
+                    return this;
+                };
+
+                function createList(products){
+                    var list = "";
+                    $.each(products, function(i, item) {
+                        list += "<li>" + item + "</li>";
+                    });
+                    myList.append( myItems.join( "" ) );
+                    return list;
+                }
+
+                function initProductList(){
+                    var nav = $( ".nav" );
+                    var asideLis = $(".aside > ul > li").changeLook('blue');
+
+                    if ($( ".nav" ).length && $( ".nav" ).has('a')) {
+                        var secondHref = $(".nav > a.selected");
+                        secondHref.attr("href", "http://stackoverflow.com");
+                        nav.find( "a" ).eq(3).attr("href", "https://learn.jquery.com");
+                        nav.find( "a" ).eq(4).text("TEXT CHANGED");
+                        nav.find( "a" ).eq(5).changeColor();
+                        $(".path > div" ).css( {fontSize: "14px", color: "red"});
+                    }
+
+                    $.ajax({
+                        url: 'https://jsonplaceholder.typicode.com/posts/1',//'sofadata.json',
+                        dataType: 'json',
+                        async: true,
+                        success: function(data){
+                            alert('hello');
+/*                             $.each(data, function(index, element) {
+                                alert
+                            }); */
+                        },
+                        error: function(xhr, ajaxOptions, thrownError){
+                            alert(xhr.statusText);
+                        }
+                    });
+                }
+
+                initProductList();
+
+                $(".nav a").click(function( event ) {
+                    $(this).parent().find('.selected').removeClass();
+                    $(this).addClass('selected');
+                });
+            });
+            
+        </script>
         <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="sofas.css" />
     </head>

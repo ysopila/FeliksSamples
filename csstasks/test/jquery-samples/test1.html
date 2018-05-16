@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <a href="#" title="Hi">dialog, say hi</a>
+        <a href="#" title="Bye">dialog, say bye</a>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script> 
+            (function ($) {
+                $.fn.dialog = function (options) {
+                    var text = this.attr('title') || this.text();
+                    alert(text);
+                };
+            })(jQuery);
+
+            $('a').click(function () {
+                $(this).dialog();
+                return false;
+            });
+
+            $(window).load(function () { 
+                jQuery("<a></a>").attr('title', 'I say hi when invoked!').dialog();
+            });
+    </script>
+    </body>
+</html>

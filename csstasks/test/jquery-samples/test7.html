@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <style>
+        .last {
+            background: #900;
+        }
+    </style>
+    <ul id="list">
+        <li></li>
+        <li>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script> (function ($) {
+            $('#list').find('> li').filter(':last').addClass('last').end()
+            .find('ul').css('background', '#ccc').find('li:last').addClass('last').end().end().end()
+            .find('li').append('I am an &lt;li&gt;');
+        })(jQuery); </script>
+</body>
+
+</html>
