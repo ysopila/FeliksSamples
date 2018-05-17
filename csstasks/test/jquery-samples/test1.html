@@ -4,17 +4,17 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <body>
         <div class="dropdown" data-value="2">
-            <p class="text"></p>
-            <div class="dropbtn"><i class="fas fa-caret-down"></i></div>
-            <div class="dropdown-content">
-                <div data-value="1">Option 1</div>
-                <div data-value="2">Option 2</div>
-                <div data-value="3">Option 3</div>
-            </div>
+            <div data-value="1">Option 1</div>
+            <div data-value="2">Option 2</div>
+            <div data-value="3">Option 3</div>
         </div>
 
         <script>
             $(document).ready(function() {
+                setContentStyles(createContent());
+                setButtonStyles(createButton());
+                setTextStyles(createTextElement());
+
                 var value = $(".dropdown").data().value;
                 $('.dropdown-content').children('div').each(function () {
                     if(this.dataset.value == value){
@@ -23,14 +23,7 @@
                     }
                 });
             });
-
-            $(".dropdown-content").on("click", function(event){
-                $(".text").text("Option " + event.target.dataset.value);
-                $("div").find('.selected').removeClass();
-                $(event.target).addClass("selected"); 
-                $(".dropdown-content").css("display", "none");
-            });
-
+            
             $("*").on("click", function(event){
                 if(event.target.className !== 'dropbtn' || 
                     event.target.className !== 'fas fa-caret-down'){
@@ -38,20 +31,90 @@
                 }
             });
 
-            $(".dropbtn").on("click", function(event){
-                var dropDownContent = $(".dropdown-content");
-                 dropDownContent.css("display", dropDownContent.css("display") === "none" ? "block" : "none");
-                 return false;
-            });
+            function dropDownContentClick(event){
+                $(".text").text("Option " + event.target.dataset.value);
+                $("div").find('.selected').removeClass();
+                $(event.target).addClass("selected"); 
+                $(".dropdown-content").css("display", "none");
+            };
 
+            function showOptionList(event){
+                var dropDownContent = $(".dropdown-content");
+                dropDownContent.css("display", dropDownContent.css("display") === "none" ? "block" : "none");
+                return false;
+            }
+
+            function createContent(){
+                var content = $('<div/>', {
+                    class: 'dropdown-content',
+                    click: dropDownContentClick
+                });
+
+                $(".dropdown > div").appendTo(content);
+                $(".dropdown").append(content);
+
+                return content;
+            }
+
+            function createArrow(){
+                return $('<i/>', {
+                    class: 'fas fa-caret-down'
+                });
+            }
+
+            function createTextElement(){
+                var text = $('<p/>', {
+                    class: 'text',
+                });
+
+                $(".dropdown").append(text);
+
+                return text;
+            }
+
+            function createButton(){
+                var arrow = createArrow();
+
+                var button = $('<div/>', {
+                    class: 'dropbtn',
+                    click: showOptionList
+                }).append(arrow);
+
+                $(".dropdown").append(button);
+                return button;
+            }
+
+            function setContentStyles(content){
+                content.css({
+                    "display" : "none",
+                    "position" : "absolute",
+                    "top" : "38px",
+                    "min-width" : "200px"
+                });
+            }
+
+            function setTextStyles(pElem){
+                pElem.css({
+                    "margin" : "0",
+                    "padding" : "10px",
+                    "float": "left",
+                    "font-size": "16px"
+                });
+            }
+
+            function setButtonStyles(btn){
+               btn.css({
+                    "padding" : "10px",
+                    "border-left" : "1px solid black",
+                    "float" : "right",
+                    "background-color" : "lightgray"
+                });
+            }
         </script>
+
         <style>
             body{
                 box-sizing: border-box;
-            }
-            .dropdown > p{
-                margin: 0;
-                padding: 10px;
             }
 
             .dropdown {
@@ -61,25 +124,6 @@
                 position: relative;
                 display: inline-block; 
                 width: 200px;
-            }
-
-            .dropdown .text{
-                float: left;
-                font-size: 16px;
-            }
-
-            .dropdown .dropdown-content {
-                display: none;
-                position: absolute;
-                top: 38px;
-                min-width: 200px;
-            }
-
-            .dropdown .dropbtn {
-                padding: 10px;
-                border-left: 1px solid black;
-                float: right;
-                background-color: lightgray;
             }
 
             .dropdown-content > div:hover {
