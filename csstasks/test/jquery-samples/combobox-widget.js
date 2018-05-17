@@ -17,7 +17,9 @@
             setContentStyles(createContent($container));
             setButtonStyles(createButton($container));
             setTextStyles(createTextElement($container));
-    
+
+            $(this).on("selectedItem:toggle", changeItem);
+
             var value = $container.data().value;
             $container.find(contentClassName).children('div').each(function () {
                 if(this.attributes.length > 0 && this.attributes[0].value == value){
@@ -34,8 +36,13 @@
             }
         });
 
+        function changeItem(event, data) {
+            $(this).find(textClassName).text(data);
+        }
+
         function dropDownContentClick(event){
-            $(this).parent().find(textClassName).text(event.target.textContent);
+            //$(this).parent().find(textClassName).text(event.target.textContent);
+            $(this).parent().trigger("selectedItem:toggle",  event.target.textContent);
             $(this).find('.selected').removeClass();
             $(event.target).addClass("selected"); 
             $(this).css("display", "none");
@@ -44,7 +51,7 @@
         function showOptionList(event){
             var dropDownContent = $(this).parent().find(contentClassName);
             $holder.each(function(){
-                $(this).find(contentClassName).css("display", $(this).css("display") === "none" ? "block" : "none");
+                $(this).find(contentClassName).css("display", "none");
             });
             dropDownContent.css("display", dropDownContent.css("display") === "none" ? "block" : "none");
             return false;
