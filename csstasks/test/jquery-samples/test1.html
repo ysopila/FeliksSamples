@@ -3,7 +3,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <body>
-        <div class="dropdown" data-value="2">
+        <div class="select" data-value="2">
             <div data-value="1">Option 1</div>
             <div data-value="2">Option 2</div>
             <div data-value="3">Option 3</div>
@@ -15,7 +15,7 @@
                 setButtonStyles(createButton());
                 setTextStyles(createTextElement());
 
-                var value = $(".dropdown").data().value;
+                var value = $(".select").data().value;
                 $('.dropdown-content').children('div').each(function () {
                     if(this.dataset.value == value){
                         $(".text").text("Option " + this.dataset.value);
@@ -50,8 +50,8 @@
                     click: dropDownContentClick
                 });
 
-                $(".dropdown > div").appendTo(content);
-                $(".dropdown").append(content);
+                $(".select > div").appendTo(content);
+                $(".select").append(content);
 
                 return content;
             }
@@ -67,7 +67,7 @@
                     class: 'text',
                 });
 
-                $(".dropdown").append(text);
+                $(".select").append(text);
 
                 return text;
             }
@@ -80,7 +80,7 @@
                     click: showOptionList
                 }).append(arrow);
 
-                $(".dropdown").append(button);
+                $(".select").append(button);
                 return button;
             }
 
@@ -117,7 +117,7 @@
                 box-sizing: border-box;
             }
 
-            .dropdown {
+            .select {
                 background-color: white;
                 font-size: 16px;
                 border: 1px solid black;
