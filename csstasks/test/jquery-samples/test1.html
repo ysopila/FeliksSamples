@@ -3,10 +3,10 @@
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <body>
-        <div class="select" data-value="2">
-            <div data-value="1">Option 1</div>
-            <div data-value="2">Option 2</div>
-            <div data-value="3">Option 3</div>
+        <div class="dropdown" data-value="2">
+            <div data-value="1">London</div>
+            <div data-value="2">New York</div>
+            <div data-value="3">Auckland</div>
         </div>
 
         <script>
@@ -15,10 +15,10 @@
                 setButtonStyles(createButton());
                 setTextStyles(createTextElement());
 
-                var value = $(".select").data().value;
+                var value = $(".dropdown").data().value;
                 $('.dropdown-content').children('div').each(function () {
                     if(this.dataset.value == value){
-                        $(".text").text("Option " + this.dataset.value);
+                        $(".text").text(this.textContent);
                         $(this).addClass("selected");
                     }
                 });
@@ -32,7 +32,7 @@
             });
 
             function dropDownContentClick(event){
-                $(".text").text("Option " + event.target.dataset.value);
+                $(".text").text(event.target.textContent);
                 $("div").find('.selected').removeClass();
                 $(event.target).addClass("selected"); 
                 $(".dropdown-content").css("display", "none");
@@ -50,8 +50,8 @@
                     click: dropDownContentClick
                 });
 
-                $(".select > div").appendTo(content);
-                $(".select").append(content);
+                $(".dropdown > div").appendTo(content);
+                $(".dropdown").append(content);
 
                 return content;
             }
@@ -67,7 +67,7 @@
                     class: 'text',
                 });
 
-                $(".select").append(text);
+                $(".dropdown").append(text);
 
                 return text;
             }
@@ -80,7 +80,7 @@
                     click: showOptionList
                 }).append(arrow);
 
-                $(".select").append(button);
+                $(".dropdown").append(button);
                 return button;
             }
 
@@ -117,7 +117,7 @@
                 box-sizing: border-box;
             }
 
-            .select {
+            .dropdown {
                 background-color: white;
                 font-size: 16px;
                 border: 1px solid black;
