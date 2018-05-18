@@ -1,7 +1,5 @@
 (function ($) {
     $.fn.displayCombo = function(options) {
-        var $holder = $(this);
-
         return this.each(function () {
             $.fn.displayCombo.defaults = $.extend({}, $.fn.displayCombo.defaults, options);
             var $container = $(this);
@@ -19,8 +17,10 @@
             $(document).on("click", function(event){
                 $(document).find('body').children('div').each(function (){
                     var $content = $(this).find(listClass);
-                    $(listClass).hide();
+                    $content.hide();
                 });
+                $(event.target.offsetParent).find(listClass).toggle();
+                event.stopImmediatePropagation();
             });
     
             function changeText(container){
@@ -64,8 +64,7 @@
         
             function createArrow() {
                 return $('<i/>', { 
-                    class: $.fn.displayCombo.defaults.icon,
-                    id: $.fn.displayCombo.defaults.iconId 
+                    class: $.fn.displayCombo.defaults.icon
                 });
             }
         
@@ -79,13 +78,7 @@
             function createButton(container){
                 var arrow = createArrow();
                 var button = $('<div/>', {
-                    class: $.fn.displayCombo.defaults.dropdownButton,
-                    id: $.fn.displayCombo.defaults.buttonId,
-                    click: function (event){
-                        var dropDownContent = container.find(listClass);
-                        dropDownContent.toggle();
-                        return false;
-                    }
+                    class: $.fn.displayCombo.defaults.dropdownButton
                 }).append(arrow);
         
                 container.append(button);
