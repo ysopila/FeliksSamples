@@ -1,47 +1,46 @@
 (function ($) {
-    $.fn.displayCombo = function(ccName, cName, bName, tName, iName) {
-        var iconName = iName;
-        var containerName = ccName;
-        var contentName = cName;
-        var buttonName = bName;
-        var textName = tName;
+    $.fn.displayCombo = function(options) {
+        $.fn.displayCombo.defaults = $.extend({}, $.fn.displayCombo.defaults, options);
 
-        var containerClassName = '.' + containerName;
-        var contentClassName = '.' + contentName;
-        var buttonClassName = '.' + buttonName;
-        var textClassName = '.' + textName;
         var $holder = $(this);
 
         $(this).each(function () {
             $container = $(this);
+            $container.on("selectedItem:toggle", changeItem);
+
             setContentStyles(createContent($container));
             setButtonStyles(createButton($container));
             setTextStyles(createTextElement($container));
 
-            $(this).on("selectedItem:toggle", changeItem);
-
             var value = $container.data().value;
-            $container.find(contentClassName).children('div').each(function () {
-                if(this.attributes.length > 0 && this.attributes[0].value == value){
-                    $container.find(textClassName).text(this.textContent);
+            var listClass = '.' + $.fn.displayCombo.defaults.dropdownList;
+            var displayTextClass = '.' + $.fn.displayCombo.defaults.displayText;
+
+            $container.find(listClass).children('div').each(function () {
+                var data = $(this).data().value;
+                if(validateData(data) && validateData(value) && data === value){
+                    $container.find(displayTextClass).text(this.textContent);
                     $(this).addClass("selected");
                 }
             });
         });
 
         $(document).on("click", function(event){
-            if(event.target.className !== buttonName || 
-                event.target.className !== iconName){
-                $(contentClassName).css("display", "none");
+            if(event.target.id !== $.fn.displayCombo.defaults.buttonId || 
+                event.target.id !== $.fn.displayCombo.defaults.iconId){
+                $('.' + $.fn.displayCombo.defaults.dropdownList).css("display", "none");
             }
         });
 
+        function validateData(value){
+            return typeof value !== 'undefined';
+        }
+
         function changeItem(event, data) {
-            $(this).find(textClassName).text(data);
+            $(this).find('.'+$.fn.displayCombo.defaults.displayText).text(data);
         }
 
         function dropDownContentClick(event){
-            //$(this).parent().find(textClassName).text(event.target.textContent);
             $(this).parent().trigger("selectedItem:toggle",  event.target.textContent);
             $(this).find('.selected').removeClass();
             $(event.target).addClass("selected"); 
@@ -49,18 +48,19 @@
         };
 
         function showOptionList(event){
-            var dropDownContent = $(this).parent().find(contentClassName);
+            var listClass = '.' + $.fn.displayCombo.defaults.dropdownList;
+            var dropDownContent = $(this).parent().find(listClass);
             $holder.each(function(){
-                $(this).find(contentClassName).css("display", "none");
+                $(this).find(listClass).hide();
             });
-            dropDownContent.css("display", dropDownContent.css("display") === "none" ? "block" : "none");
+            dropDownContent.is(':visible') ? dropDownContent.hide() : dropDownContent.show();
             return false;
         }
-    
+
         function createContent(container){
             var content = $('<div/>', {
-                class: contentName,
-                click: dropDownContentClick,
+                class: $.fn.displayCombo.defaults.dropdownList,
+                click: dropDownContentClick
             });
     
             container.children('div').appendTo(content);
@@ -70,11 +70,14 @@
         }
     
         function createArrow() {
-            return $('<i/>', { class: iconName });
+            return $('<i/>', { 
+                class: $.fn.displayCombo.defaults.icon,
+                id: $.fn.displayCombo.defaults.iconId 
+            });
         }
     
         function createTextElement(container) {
-            var text = $('<p/>', { class: textName });
+            var text = $('<p/>', { class: $.fn.displayCombo.defaults.displayText });
             container.append(text);
     
             return text;
@@ -84,7 +87,8 @@
             var arrow = createArrow();
     
             var button = $('<div/>', {
-                class: buttonName,
+                class: $.fn.displayCombo.defaults.dropdownButton,
+                id: $.fn.displayCombo.defaults.buttonId,
                 click: showOptionList
             }).append(arrow);
     
@@ -120,4 +124,13 @@
             });
         }
     };
+
+    $.fn.displayCombo.defaults = {
+        dropdownList : 'dropdown-content',
+        dropdownButton : 'dropbtn',
+        displayText : 'text',
+        icon : 'fas fa-caret-down',
+        iconId : 'iconId',
+        buttonId : 'buttonId'
+    }; 
 }(jQuery));
