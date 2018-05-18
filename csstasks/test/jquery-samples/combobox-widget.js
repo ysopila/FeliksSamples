@@ -17,19 +17,19 @@
             changeText($container);
 
             $(document).on("click", function(event){
-                if(event.target.id !== $.fn.displayCombo.defaults.buttonId || 
-                    event.target.id !== $.fn.displayCombo.defaults.iconId){
-                    $('.' + $.fn.displayCombo.defaults.dropdownList).css("display", "none");
-                }
+                $(document).find('body').children('div').each(function (){
+                    var $content = $(this).find(listClass);
+                    $(listClass).hide();
+                });
             });
     
             function changeText(container){
                 var data1 = container.data().value;
-                container.find('.' + $.fn.displayCombo.defaults.dropdownList).children('div').each(function () {
+                container.find(listClass).children('div').each(function () {
                     $elem = $(this);
                     var data2 = $elem.data().value;
                     if(validateData(data1) && validateData(data2) && data1 == data2){
-                        container.find('.' + $.fn.displayCombo.defaults.displayText).text(this.textContent);
+                        container.find(displayTextClass).text(this.textContent);
                         $elem.addClass("selected");
                     }
                 });
@@ -52,7 +52,7 @@
                         container.trigger("selectedItem:toggle",  event.target.attributes[0].value);
                         $(this).find('.selected').removeClass();
                         $(event.target).addClass("selected"); 
-                        $(this).css("display", "none");
+                        $(this).hide();
                     }
                 });
         
@@ -82,12 +82,8 @@
                     class: $.fn.displayCombo.defaults.dropdownButton,
                     id: $.fn.displayCombo.defaults.buttonId,
                     click: function (event){
-                        var listClass = '.' + $.fn.displayCombo.defaults.dropdownList;
                         var dropDownContent = container.find(listClass);
-                        $holder.each(function(){
-                            $(this).find(listClass).hide();
-                        });
-                        dropDownContent.is(':visible') ? dropDownContent.hide() : dropDownContent.show();
+                        dropDownContent.toggle();
                         return false;
                     }
                 }).append(arrow);
@@ -132,9 +128,6 @@
         dropdownList : 'dropdown-content',
         dropdownButton : 'dropbtn',
         displayText : 'text',
-        icon : 'fas fa-caret-down',
-        iconId : 'iconId',
-        buttonId : 'buttonId',
-        $container : null
+        icon : 'fas fa-caret-down'
     }; 
 }(jQuery));
