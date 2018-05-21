@@ -23,8 +23,7 @@
             }
 
             $(document).on("click", function(event){
-                closeAllDropDowns();
-                event.stopImmediatePropagation();
+                $container.find(listClass).hide();
             });
     
             function changeText(container){
