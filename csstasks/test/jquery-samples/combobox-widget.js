@@ -91,9 +91,12 @@
             function setContentStyles(content){
                 content.css({
                     "display" : "none",
+                    "background-color" : "white",
                     "position" : "absolute",
-                    "top" : $container.height() + "px",
-                    "min-width" : "200px"
+                    "top" : "100%",
+                    "left" : "-1px",
+                    "min-width" : "200px",
+                    "z-index" : "1"
                 });
             }
         
