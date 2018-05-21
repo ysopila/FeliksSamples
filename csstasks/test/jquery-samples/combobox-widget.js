@@ -1,7 +1,7 @@
 (function ($) {
     $.fn.displayCombo = function(options) {
         return this.each(function () {
-            $.extend({}, $.fn.displayCombo.defaults, options);
+            var settings = $.extend({}, $.fn.displayCombo.defaults, options);
             var $container = $(this);
             $container.on("selectedItem:toggle", changeItem);
 
@@ -10,13 +10,13 @@
             setTextStyles(createTextElement($container));
 
             var value = $container.data().value;
-            var listClass = '.' + $.fn.displayCombo.defaults.dropdownList;
-            var displayTextClass = '.' + $.fn.displayCombo.defaults.displayText;
+            var listClass = '.' + settings.dropdownList;
+            var displayTextClass = '.' + settings.displayText;
             
             changeText($container);
 
             function closeAllDropDowns(){
-                $(document).find('body').children('div.' + $.fn.displayCombo.defaults.dropdownContainer).each(function (){
+                $(document).find('body').children('div.' + settings.dropdownContainer).each(function (){
                     var $content = $(this).find(listClass);
                     $content.hide();
                 });
@@ -51,7 +51,7 @@
     
             function createContent(container){
                 var content = $('<div/>', {
-                    class: $.fn.displayCombo.defaults.dropdownList,
+                    class: settings.dropdownList,
                     click: function (event){
                         container.trigger("selectedItem:toggle",  event.target.attributes[0].value);
                         $(this).find('.selected').removeClass();
@@ -68,12 +68,12 @@
         
             function createArrow() {
                 return $('<i/>', { 
-                    class: $.fn.displayCombo.defaults.icon
+                    class: settings.icon
                 });
             }
         
             function createTextElement(container) {
-                var text = $('<p/>', { class: $.fn.displayCombo.defaults.displayText });
+                var text = $('<p/>', { class: settings.displayText });
                 container.append(text);
         
                 return text;
@@ -82,7 +82,7 @@
             function createButton(container){
                 var arrow = createArrow();
                 var button = $('<div/>', {
-                    class: $.fn.displayCombo.defaults.dropdownButton,
+                    class: settings.dropdownButton,
                     click: function(event){
                         var opened = container.find(listClass).is(':visible');
                         closeAllDropDowns();
