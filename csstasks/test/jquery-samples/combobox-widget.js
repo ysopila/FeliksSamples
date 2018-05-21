@@ -1,7 +1,7 @@
 (function ($) {
     $.fn.displayCombo = function(options) {
         return this.each(function () {
-            $.fn.displayCombo.defaults = $.extend({}, $.fn.displayCombo.defaults, options);
+            $.extend({}, $.fn.displayCombo.defaults, options);
             var $container = $(this);
             $container.on("selectedItem:toggle", changeItem);
 
@@ -12,14 +12,18 @@
             var value = $container.data().value;
             var listClass = '.' + $.fn.displayCombo.defaults.dropdownList;
             var displayTextClass = '.' + $.fn.displayCombo.defaults.displayText;
+            
             changeText($container);
 
-            $(document).on("click", function(event){
-                $(document).find('body').children('div').each(function (){
+            function closeAllDropDowns(){
+                $(document).find('body').children('div.' + $.fn.displayCombo.defaults.dropdownContainer).each(function (){
                     var $content = $(this).find(listClass);
                     $content.hide();
                 });
-                $(event.target.offsetParent).find(listClass).toggle();
+            }
+
+            $(document).on("click", function(event){
+                closeAllDropDowns();
                 event.stopImmediatePropagation();
             });
     
@@ -78,7 +82,15 @@
             function createButton(container){
                 var arrow = createArrow();
                 var button = $('<div/>', {
-                    class: $.fn.displayCombo.defaults.dropdownButton
+                    class: $.fn.displayCombo.defaults.dropdownButton,
+                    click: function(event){
+                        var opened = container.find(listClass).is(':visible');
+                        closeAllDropDowns();
+                        if(!opened){
+                            container.find(listClass).toggle();
+                        }
+                        event.stopImmediatePropagation();
+                    }
                 }).append(arrow);
         
                 container.append(button);
@@ -112,15 +124,16 @@
                     "background-color" : "lightgray"
                 });
             }
-
-            return $container;
         });
+
+        return this;
     };
 
     $.fn.displayCombo.defaults = {
         dropdownList : 'dropdown-content',
         dropdownButton : 'dropbtn',
         displayText : 'text',
+        dropdownContainer : 'dropdown',
         icon : 'fas fa-caret-down'
     }; 
 }(jQuery));
