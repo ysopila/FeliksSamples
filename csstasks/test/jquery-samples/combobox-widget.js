@@ -3,7 +3,7 @@
         return this.each(function () {
             var settings = $.extend({}, $.fn.displayCombo.defaults, options);
             var $container = $(this);
-            $container.on("selectedItem:toggle", changeItem);
+            $container.addClass('display-combo').on("selectedItem:toggle", changeItem);
 
             setContentStyles(createContent($container));
             setButtonStyles(createButton($container));
@@ -15,24 +15,11 @@
             
             changeText($container);
 
-            function closeAllDropDowns(){
-                $(document).find('body').children('div.' + settings.dropdownContainer).each(function (){
-                    var $content = $(this).find(listClass);
-                    $content.hide();
-                });
-            }
-
-            $container.on("click", function(event){
-                var opened = $container.find(listClass).is(':visible');
-                closeAllDropDowns();
-                if(!opened){
-                    $container.find(listClass).toggle();
+            $(document).on("click", function(event) {
+                var $combo = $(event.target).closest('.display-combo');
+                if (!$combo.length || $combo[0] !== $container[0]) {
+                    $container.find(listClass).hide();
                 }
-                event.stopImmediatePropagation();
-            });
-
-            $(document).on("click", function(event){
-                $container.find(listClass).hide();
             });
     
             function changeText(container){
@@ -60,12 +47,12 @@
             function createContent(container){
                 var content = $('<div/>', {
                     class: settings.dropdownList,
-                    click: function (event){
+                    click: function (event) {
+                        var $this = $(this);
                         container.trigger("selectedItem:toggle",  event.target.attributes[0].value);
-                        $(this).find('.selected').removeClass();
+                        $this.find('.selected').removeClass();
                         $(event.target).addClass("selected"); 
-                        $(this).hide();
-                        event.stopImmediatePropagation();
+                        $this.hide();
                     }
                 });
         
@@ -91,7 +78,10 @@
             function createButton(container){
                 var arrow = createArrow();
                 var button = $('<div/>', {
-                    class: settings.dropdownButton
+                    class: settings.dropdownButton,
+                    click: function() {
+                        $(listClass, container).toggle();
+                    }
                 }).append(arrow);
         
                 container.append(button);
