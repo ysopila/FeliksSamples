@@ -22,6 +22,15 @@
                 });
             }
 
+            $container.on("click", function(event){
+                var opened = $container.find(listClass).is(':visible');
+                closeAllDropDowns();
+                if(!opened){
+                    $container.find(listClass).toggle();
+                }
+                event.stopImmediatePropagation();
+            });
+
             $(document).on("click", function(event){
                 $container.find(listClass).hide();
             });
@@ -56,6 +65,7 @@
                         $(this).find('.selected').removeClass();
                         $(event.target).addClass("selected"); 
                         $(this).hide();
+                        event.stopImmediatePropagation();
                     }
                 });
         
@@ -77,19 +87,11 @@
         
                 return text;
             }
-        
+
             function createButton(container){
                 var arrow = createArrow();
                 var button = $('<div/>', {
-                    class: settings.dropdownButton,
-                    click: function(event){
-                        var opened = container.find(listClass).is(':visible');
-                        closeAllDropDowns();
-                        if(!opened){
-                            container.find(listClass).toggle();
-                        }
-                        event.stopImmediatePropagation();
-                    }
+                    class: settings.dropdownButton
                 }).append(arrow);
         
                 container.append(button);
