@@ -4,8 +4,8 @@
             var settings = $.extend({}, $.fn.displayImageCtrl.defaults, options);
 
             var $container = createMainContainer($(this));
-            createButton($container);
-
+            createInput(createLabel($container));
+            
             function createZoomedImage(container, originalImage) {
                 return $('<img/>', {
                     class: settings.zoomedImageClass
@@ -59,7 +59,6 @@
                 return $('<div/>', {
                     class: settings.mainClass
                 }).css({
-                    "background-color": "lightgrey",
                     "margin": "0 auto",
                     "position": "relative",
                     "border": "2px solid black",
@@ -82,41 +81,54 @@
                     }
                 }).css({
                     "max-width": "100%",
-                    "max-height": "100%"
+                    "max-height": "100%",
+                    "position" :"relative",
                 }).appendTo(container);
             }
 
-            function createButton(container) {
+            function createLabel(container){
+                return $('<label/>', {
+                    class: settings.imageButtonClass
+                }).css({
+                    "color" : "white",
+                    "background-color" : "grey",
+                    "padding" : "10px 20px",
+                    "position": "relative",
+                    "top": "50%",
+                    "left": "50%",
+                    "border" : "1.5px solid black"
+                }).appendTo(container).text(settings.textButton);
+            }
+
+            function createInput(container){
                 return $('<input/>', {
-                    class: settings.imageButtonClass,
                     type: "file",
                     change: function(event) {
                         if (this.files && this.files[0]) {
                             var reader = new FileReader();
                             reader.onload = function(e) {
-                                createImageHolder(container).attr('src', reader.result);
+                                createImageHolder($container).attr('src', reader.result);
                                 $('.' + settings.imageButtonClass).remove();
                             };
                             reader.readAsDataURL(this.files[0]);
                         }
                     }
                 }).css({
-                    "width": "150px",
-                    "height": "40px",
-                    "position": "relative",
-                    "top": "50%",
-                    "left": "50%"
+                    "opacity" : "0",
+                    "position" : "absolute",
+                    "z-index" : "-1"
                 }).appendTo(container);
             }
 
             function moveZoomScreen(x, y) {
                 $('.' + settings.zoomedImageClass).css({ 
                     "top": ((-y * settings.scaleFactor) + 75) + "px ", 
-                    "left": ((-x * settings.scaleFactor) + 75) + "px" });
+                    "left": ((-x * settings.scaleFactor) + 75) + "px"
+                });
 
                 $('.' + settings.zoomedPopupClass).css({ 
                     "top": (y - 75) + "px", 
-                    "left": (x + 75) + "px" 
+                    "left": (x + 75) + "px"
                 });
 
                 var size = (settings.sizeSquare/2);
