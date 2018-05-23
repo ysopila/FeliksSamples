@@ -5,7 +5,7 @@
 
             var $container = createMainContainer($(this));
             createInput(createLabel($container));
-            
+
             function createZoomedImage(container, originalImage) {
                 return $('<img/>', {
                     class: settings.zoomedImageClass
@@ -93,9 +93,10 @@
                     "color" : "white",
                     "background-color" : "grey",
                     "padding" : "10px 20px",
-                    "position": "relative",
+                    "position": "absolute",
                     "top": "50%",
                     "left": "50%",
+                    "transform" : "translate(-50%, -50%)",
                     "border" : "1.5px solid black"
                 }).appendTo(container).text(settings.textButton);
             }
