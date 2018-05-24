@@ -2,7 +2,7 @@
     $.fn.displayImageCtrl = function(options) {
         return this.each(function() {
             var settings = $.extend({}, $.fn.displayImageCtrl.defaults, options);
-
+            var $element = $(this);
             var $container = createMainContainer($(this));
             createInput(createLabel($container));
 
@@ -26,7 +26,7 @@
                 return $('<div/>', {
                     class: settings.overlayClass,
                     mouseleave: function(event) {
-                        $container.find('.' + settings.zoomedPopupClass).remove();
+                        $element.find('.' + settings.zoomedPopupClass).remove();
                         $(event.target).remove();
                     },
                     mousemove: function(event) {
@@ -117,7 +117,7 @@
                             var reader = new FileReader();
                             reader.onload = function(e) {
                                 createImageHolder($container).attr('src', reader.result);
-                                $container.find('.' + settings.imageButtonClass).remove();
+                                $element.find('.' + settings.imageButtonClass).remove();
                             };
                             reader.readAsDataURL(this.files[0]);
                         }
@@ -133,17 +133,17 @@
                 var sizeW = ($.fn.displayImageCtrl.defaults.widthPointer * 0.5);
                 var sizeH =  ($.fn.displayImageCtrl.defaults.heightPointer * 0.5);
 
-                $('.' + settings.zoomedPopupClass).css({ 
+                $element.find('.' + settings.zoomedPopupClass).css({ 
                     "top": -($.fn.displayImageCtrl.defaults.heightPointer * 0.85) + "px", 
                     "left": $.fn.displayImageCtrl.defaults.widthPointer + settings.paddingZoom + "px"
                 });
                 
-                $('.' + settings.zoomedImageClass).css({ 
+                $element.find('.' + settings.zoomedImageClass).css({ 
                     "top": ((-y * settings.scaleFactor) + (sizeH * settings.scaleFactor)) + "px", 
                     "left": ((-x * settings.scaleFactor) + (sizeW * settings.scaleFactor)) + "px"
                 });
 
-                $('.' + settings.overlayClass).css({
+                $element.find('.' + settings.overlayClass).css({
                     "border-bottom": $.fn.displayImageCtrl.defaults.height - (y + sizeH) + "px solid rgba(193, 193, 193, .5)",
                     "border-top": (y - sizeH) + "px solid rgba(193, 193, 193, .5)",
                     "border-left": (x - sizeW) + "px solid rgba(193, 193, 193, .5)",
@@ -162,8 +162,6 @@
         imageButtonClass: 'load-image-button',
         zoomedImageClass: 'zoomed-image',
         mainClass: 'main',
-        imageWidth: null,
-        imageHeight: null,
         paddingZoom: 25,
         scalePointer: 0.25,
         widthPointer: null,
