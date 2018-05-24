@@ -65,15 +65,13 @@
                 return $('<div/>', {
                     class: settings.mainClass
                 }).css({
-                    "position": "absolute",
-                    "top": "0",
-                    "left": "0",
-                    "bottom": "0",
-                    "right": "0",
-                    "margin": "auto",
+                    "position": "relative",
+                    "top": "50%",
+                    "left": "50%",
+                    "transform": "translate(-50%, -50%)",
                     "border": "2px solid black",
-                    "width": "60%",
-                    "height": "500px"
+                    "width": settings.widthControl,
+                    "height": settings.heightControl
                 }).appendTo(container);
             }
 
@@ -171,6 +169,8 @@
         widthPointer: null,
         heightPointer: null,
         scaleFactor: 3,
-        textButton: "Load Image"
+        textButton: "Load Image",
+        widthControl: "40%",
+        heightControl: "300px"
     };
 }(jQuery));
