@@ -4,6 +4,10 @@
             var settings = $.extend({}, $.fn.displayImageCtrl.defaults, options);
             var $element = $(this);
             var $container = createMainContainer($(this));
+            var $overlayElement;
+            var $zoomedImageElement;
+            var $zoomedPopupElement;
+            var $buttonElement;
             var overlayWidth;
             var overlayHeight;
             var pointerWidth;
@@ -12,7 +16,7 @@
             createInput(createLabel($container));
 
             function createZoomedImage(container, originalImage) {
-                return $('<img/>', {
+                return $zoomedImageElement = $('<img/>', {
                     class: settings.zoomedImageClass
                 }).attr("src", originalImage.attr("src")).css({
                     "width" : originalImage.width() * settings.scaleFactor,
@@ -28,10 +32,10 @@
                 pointerWidth = settings.scalePointer * originalImage.width();
                 pointerHeight = settings.scalePointer * originalImage.height();
 
-                return $('<div/>', {
+                return $overlayElement = $('<div/>', {
                     class: settings.overlayClass,
                     mouseleave: function(event) {
-                        $element.find('.' + settings.zoomedPopupClass).remove();
+                        $zoomedPopupElement.remove();
                         $(event.target).remove();
                     },
                     mousemove: function(event) {
@@ -51,7 +55,7 @@
             }
 
             function createZoomPopup(container) {
-                return $('<div/>', {
+                return $zoomedPopupElement = $('<div/>', {
                     class: settings.zoomedPopupClass
                 }).css({
                     "background-color": "white",
@@ -84,8 +88,8 @@
                 return $('<img/>', {
                     class: settings.imageHolderClass,
                     mouseenter: function(event) {
-                        var wrapper = createOverlayContainer(container, $(event.target))
-                        createZoomedImage(createZoomPopup(wrapper), $(event.target));
+                        createOverlayContainer(container, $(event.target))
+                        createZoomedImage(createZoomPopup($overlayElement), $(event.target));
                     }
                 }).css({
                     "max-width": "100%",
@@ -100,7 +104,7 @@
             }
 
             function createLabel(container){
-                return $('<label/>', {
+                return $buttonElement = $('<label/>', {
                     class: settings.imageButtonClass
                 }).css({
                     "color" : "white",
@@ -122,7 +126,7 @@
                             var reader = new FileReader();
                             reader.onload = function(e) {
                                 createImageHolder($container).attr('src', reader.result);
-                                $element.find('.' + settings.imageButtonClass).remove();
+                                $buttonElement.remove();
                             };
                             reader.readAsDataURL(this.files[0]);
                         }
@@ -148,17 +152,17 @@
                 var sizeW = (pointerWidth * 0.5);
                 var sizeH =  (pointerHeight * 0.5);
 
-                $element.find('.' + settings.zoomedPopupClass).css({ 
+                $zoomedPopupElement.css({ 
                     "top": -(pointerHeight * 0.85) + "px", 
                     "left": pointerWidth + settings.paddingZoom + "px"
                 });
                 
-                $element.find('.' + settings.zoomedImageClass).css({ 
+                $zoomedImageElement.css({ 
                     "top": ((-y * settings.scaleFactor) + (sizeH * settings.scaleFactor)) + "px", 
                     "left": ((-x * settings.scaleFactor) + (sizeW * settings.scaleFactor)) + "px"
                 });
 
-                $element.find('.' + settings.overlayClass).css({
+                $overlayElement.css({
                     "border-bottom": validateBorderSize(overlayHeight - (y + sizeH), overlayHeight) + "px solid rgba(193, 193, 193, .5)",
                     "border-top": validateBorderSize(y - sizeH, overlayHeight) + "px solid rgba(193, 193, 193, .5)",
                     "border-left": validateBorderSize(x - sizeW, overlayWidth) + "px solid rgba(193, 193, 193, .5)",
