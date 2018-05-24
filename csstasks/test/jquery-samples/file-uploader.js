@@ -24,7 +24,7 @@
             function startQueue() {
                 var queue = function () {
                     if (mouseinside) {
-                        if(last_x != x && last_y != y){
+                        if(last_x != x || last_y != y){
                             moveZoomScreen(x, y);
                         }
                     }
