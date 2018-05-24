@@ -54,6 +54,8 @@
                     class: settings.overlayClass,
                     mouseleave: function(event) {
                         mouseinside = false;
+                        last_x = 0;
+                        last_y = 0; 
                         $zoomedPopupElement.remove();
                         $(event.target).remove();
                     },
