@@ -31,7 +31,7 @@
                     },
                     mousemove: function(event) {
                         var offset = $(event.target).offset();
-                        moveZoomScreen(event.pageX - offset.left, event.pageY - offset.top, event);
+                        moveZoomScreen(event.pageX - offset.left, event.pageY - offset.top);
                     }
                 }).appendTo(container).css({
                     "top": "0",
@@ -129,6 +129,16 @@
                 }).appendTo(container);
             }
 
+            function validateBorderSize(size, max){
+                if(size < 0){
+                    return 0;
+                }else if(size > max){
+                    return max;
+                }else{
+                    return size;
+                }
+            }
+
             function moveZoomScreen(x, y) {
                 var sizeW = ($.fn.displayImageCtrl.defaults.widthPointer * 0.5);
                 var sizeH =  ($.fn.displayImageCtrl.defaults.heightPointer * 0.5);
@@ -144,10 +154,14 @@
                 });
 
                 $element.find('.' + settings.overlayClass).css({
-                    "border-bottom": $.fn.displayImageCtrl.defaults.height - (y + sizeH) + "px solid rgba(193, 193, 193, .5)",
-                    "border-top": (y - sizeH) + "px solid rgba(193, 193, 193, .5)",
-                    "border-left": (x - sizeW) + "px solid rgba(193, 193, 193, .5)",
-                    "border-right": $.fn.displayImageCtrl.defaults.width - (x + sizeW) + "px solid rgba(193, 193, 193, .5)"
+                    "border-bottom": validateBorderSize($.fn.displayImageCtrl.defaults.height - (y + sizeH), 
+                        $.fn.displayImageCtrl.defaults.height) + "px solid rgba(193, 193, 193, .5)",
+                    "border-top": validateBorderSize(y - sizeH, 
+                        $.fn.displayImageCtrl.defaults.height) + "px solid rgba(193, 193, 193, .5)",
+                    "border-left": validateBorderSize(x - sizeW,
+                        $.fn.displayImageCtrl.defaults.width) + "px solid rgba(193, 193, 193, .5)",
+                    "border-right": validateBorderSize($.fn.displayImageCtrl.defaults.width - (x + sizeW),
+                        $.fn.displayImageCtrl.defaults.width) + "px solid rgba(193, 193, 193, .5)"
                 });
             }
         });
