@@ -16,9 +16,9 @@
                 }).appendTo(container);
             }
 
-            function createOverlayContainer(container, width, height) {
-                $.fn.displayImageCtrl.defaults.height = height;
-                $.fn.displayImageCtrl.defaults.width = width;
+            function createOverlayContainer(container, originalImage) {
+                $.fn.displayImageCtrl.defaults.height = originalImage.height();
+                $.fn.displayImageCtrl.defaults.width = originalImage.width();
 
                 return $('<div/>', {
                     class: settings.overlayClass,
@@ -28,14 +28,17 @@
                     },
                     mousemove: function(event) {
                         var offset = $(event.target).offset();
-                        moveZoomScreen(event.pageX - offset.left, event.pageY - offset.top);
+                        moveZoomScreen(event.pageX - offset.left, event.pageY - offset.top, event);
                     }
-                }).appendTo($container).css({
-                    "left": "0",
+                }).appendTo(container).css({
                     "top": "0",
+                    "left": "0",
+                    "bottom": "0",
+                    "right": "0",
+                    "margin": "auto",
                     "position": "absolute",
-                    "width": width,
-                    "height": height
+                    "width": originalImage.width(),
+                    "height": originalImage.height()
                 });
             }
 
@@ -44,8 +47,8 @@
                     class: settings.zoomedPopupClass
                 }).css({
                     "background-color": "white",
-                    "top": "0",
-                    "left": "0",
+                    "top": "-25px",
+                    "left": "120px",
                     "padding": "0",
                     "position": "absolute",
                     "width": settings.widthZoomWindow,
@@ -59,30 +62,34 @@
                 return $('<div/>', {
                     class: settings.mainClass
                 }).css({
-                    "margin": "0 auto",
-                    "position": "relative",
+                    "position": "absolute",
+                    "top": "0",
+                    "left": "0",
+                    "bottom": "0",
+                    "right": "0",
+                    "margin": "auto",
                     "border": "2px solid black",
                     "width": "60%",
-                    "height": "500px",
-                    "margin-top": "200px"
-                    /*                     "top": "50%",
-                                        "left": "50%",
-                                        "position": "relative",
-                                        "transform": "translate(-50%, -50%)", */
+                    "height": "500px"
                 }).appendTo(container);
             }
 
-            function createImageHolder(container) {
+            function createImageHolder(container) {//wrapper
                 return $('<img/>', {
                     class: settings.imageHolderClass,
                     mouseenter: function(event) {
-                        createOverlayContainer(container, $(event.target).width(), $(event.target).height());
-                        createZoomedImage(createZoomPopup(container), $(event.target));
+                        var wrapper = createOverlayContainer(container, $(event.target))
+                        createZoomedImage(createZoomPopup(wrapper), $(event.target));
                     }
                 }).css({
                     "max-width": "100%",
                     "max-height": "100%",
-                    "position" :"relative",
+                    "position" :"absolute",
+                    "top": "0",
+                    "left": "0",
+                    "bottom": "0",
+                    "right": "0",
+                    "margin": "auto"
                 }).appendTo(container);
             }
 
@@ -96,7 +103,7 @@
                     "position": "absolute",
                     "top": "50%",
                     "left": "50%",
-                    "transform" : "translate(-50%, -50%)",
+                    "transform": "translate(-50%, -50%)",
                     "border" : "1.5px solid black"
                 }).appendTo(container).text(settings.textButton);
             }
@@ -109,7 +116,7 @@
                             var reader = new FileReader();
                             reader.onload = function(e) {
                                 createImageHolder($container).attr('src', reader.result);
-                                $('.' + settings.imageButtonClass).remove();
+                                $container.find('.' + settings.imageButtonClass).remove();
                             };
                             reader.readAsDataURL(this.files[0]);
                         }
@@ -121,18 +128,21 @@
                 }).appendTo(container);
             }
 
-            function moveZoomScreen(x, y) {
+            function validateX(x){
+                return ;
+            }
+
+            function validateY(y){
+                return ;
+            }
+
+            function moveZoomScreen(x, y, target) {
+                var size = (settings.sizeSquare/2);
+                
                 $('.' + settings.zoomedImageClass).css({ 
-                    "top": ((-y * settings.scaleFactor) + 75) + "px ", 
+                    "top": ((-y * settings.scaleFactor) + 75) + "px", 
                     "left": ((-x * settings.scaleFactor) + 75) + "px"
                 });
-
-                $('.' + settings.zoomedPopupClass).css({ 
-                    "top": (y - 75) + "px", 
-                    "left": (x + 75) + "px"
-                });
-
-                var size = (settings.sizeSquare/2);
 
                 $('.' + settings.overlayClass).css({
                     "border-bottom": $.fn.displayImageCtrl.defaults.height - (y + size) + "px solid rgba(193, 193, 193, .5)",
