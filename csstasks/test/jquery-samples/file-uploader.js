@@ -4,6 +4,11 @@
             var settings = $.extend({}, $.fn.displayImageCtrl.defaults, options);
             var $element = $(this);
             var $container = createMainContainer($(this));
+            var overlayWidth;
+            var overlayHeight;
+            var pointerWidth;
+            var pointerHeight;
+
             createInput(createLabel($container));
 
             function createZoomedImage(container, originalImage) {
@@ -17,11 +22,11 @@
             }
 
             function createOverlayContainer(container, originalImage) {
-                $.fn.displayImageCtrl.defaults.height = originalImage.height();
-                $.fn.displayImageCtrl.defaults.width = originalImage.width();
+                overlayHeight = originalImage.height();
+                overlayWidth = originalImage.width();
 
-                $.fn.displayImageCtrl.defaults.widthPointer = settings.scalePointer * originalImage.width();
-                $.fn.displayImageCtrl.defaults.heightPointer = settings.scalePointer * originalImage.height();
+                pointerWidth = settings.scalePointer * originalImage.width();
+                pointerHeight = settings.scalePointer * originalImage.height();
 
                 return $('<div/>', {
                     class: settings.overlayClass,
@@ -54,8 +59,8 @@
                     "left": "120px",
                     "padding": "0",
                     "position": "absolute",
-                    "width": $.fn.displayImageCtrl.defaults.widthPointer * settings.scaleFactor,
-                    "height": $.fn.displayImageCtrl.defaults.heightPointer * settings.scaleFactor,
+                    "width": pointerWidth * settings.scaleFactor,
+                    "height": pointerHeight * settings.scaleFactor,
                     "border": "1px solid black",
                     "overflow": "hidden"
                 }).appendTo(container);
@@ -140,12 +145,12 @@
             }
 
             function moveZoomScreen(x, y) {
-                var sizeW = ($.fn.displayImageCtrl.defaults.widthPointer * 0.5);
-                var sizeH =  ($.fn.displayImageCtrl.defaults.heightPointer * 0.5);
+                var sizeW = (pointerWidth * 0.5);
+                var sizeH =  (pointerHeight * 0.5);
 
                 $element.find('.' + settings.zoomedPopupClass).css({ 
-                    "top": -($.fn.displayImageCtrl.defaults.heightPointer * 0.85) + "px", 
-                    "left": $.fn.displayImageCtrl.defaults.widthPointer + settings.paddingZoom + "px"
+                    "top": -(pointerHeight * 0.85) + "px", 
+                    "left": pointerWidth + settings.paddingZoom + "px"
                 });
                 
                 $element.find('.' + settings.zoomedImageClass).css({ 
@@ -154,14 +159,10 @@
                 });
 
                 $element.find('.' + settings.overlayClass).css({
-                    "border-bottom": validateBorderSize($.fn.displayImageCtrl.defaults.height - (y + sizeH), 
-                        $.fn.displayImageCtrl.defaults.height) + "px solid rgba(193, 193, 193, .5)",
-                    "border-top": validateBorderSize(y - sizeH, 
-                        $.fn.displayImageCtrl.defaults.height) + "px solid rgba(193, 193, 193, .5)",
-                    "border-left": validateBorderSize(x - sizeW,
-                        $.fn.displayImageCtrl.defaults.width) + "px solid rgba(193, 193, 193, .5)",
-                    "border-right": validateBorderSize($.fn.displayImageCtrl.defaults.width - (x + sizeW),
-                        $.fn.displayImageCtrl.defaults.width) + "px solid rgba(193, 193, 193, .5)"
+                    "border-bottom": validateBorderSize(overlayHeight - (y + sizeH), overlayHeight) + "px solid rgba(193, 193, 193, .5)",
+                    "border-top": validateBorderSize(y - sizeH, overlayHeight) + "px solid rgba(193, 193, 193, .5)",
+                    "border-left": validateBorderSize(x - sizeW, overlayWidth) + "px solid rgba(193, 193, 193, .5)",
+                    "border-right": validateBorderSize(overlayWidth - (x + sizeW), overlayWidth) + "px solid rgba(193, 193, 193, .5)"
                 });
             }
         });
@@ -178,8 +179,6 @@
         mainClass: 'main',
         paddingZoom: 25,
         scalePointer: 0.25,
-        widthPointer: null,
-        heightPointer: null,
         scaleFactor: 3,
         textButton: "Load Image",
         widthControl: "40%",
