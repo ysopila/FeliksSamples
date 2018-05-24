@@ -128,17 +128,9 @@
                 }).appendTo(container);
             }
 
-            function validateX(x){
-                return ;
-            }
-
-            function validateY(y){
-                return ;
-            }
-
             function moveZoomScreen(x, y, target) {
                 var size = (settings.sizeSquare/2);
-                
+
                 $('.' + settings.zoomedImageClass).css({ 
                     "top": ((-y * settings.scaleFactor) + 75) + "px", 
                     "left": ((-x * settings.scaleFactor) + 75) + "px"
