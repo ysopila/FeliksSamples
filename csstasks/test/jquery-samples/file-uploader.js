@@ -20,11 +20,14 @@
                 $.fn.displayImageCtrl.defaults.height = originalImage.height();
                 $.fn.displayImageCtrl.defaults.width = originalImage.width();
 
+                $.fn.displayImageCtrl.defaults.widthPointer = settings.scalePointer * originalImage.width();
+                $.fn.displayImageCtrl.defaults.heightPointer = settings.scalePointer * originalImage.height();
+
                 return $('<div/>', {
                     class: settings.overlayClass,
                     mouseleave: function(event) {
-                        $(event.target).remove();
                         $container.find('.' + settings.zoomedPopupClass).remove();
+                        $(event.target).remove();
                     },
                     mousemove: function(event) {
                         var offset = $(event.target).offset();
@@ -47,12 +50,12 @@
                     class: settings.zoomedPopupClass
                 }).css({
                     "background-color": "white",
-                    "top": "-25px",
+                    "top": "-100px",
                     "left": "120px",
                     "padding": "0",
                     "position": "absolute",
-                    "width": settings.widthZoomWindow,
-                    "height": settings.heightZoomWindow,
+                    "width": $.fn.displayImageCtrl.defaults.widthPointer * settings.scaleFactor,
+                    "height": $.fn.displayImageCtrl.defaults.heightPointer * settings.scaleFactor,
                     "border": "1px solid black",
                     "overflow": "hidden"
                 }).appendTo(container);
@@ -74,7 +77,7 @@
                 }).appendTo(container);
             }
 
-            function createImageHolder(container) {//wrapper
+            function createImageHolder(container) {
                 return $('<img/>', {
                     class: settings.imageHolderClass,
                     mouseenter: function(event) {
@@ -128,19 +131,25 @@
                 }).appendTo(container);
             }
 
-            function moveZoomScreen(x, y, target) {
-                var size = (settings.sizeSquare/2);
+            function moveZoomScreen(x, y) {
+                var sizeW = ($.fn.displayImageCtrl.defaults.widthPointer * 0.5);
+                var sizeH =  ($.fn.displayImageCtrl.defaults.heightPointer * 0.5);
 
+                $('.' + settings.zoomedPopupClass).css({ 
+                    "top": -($.fn.displayImageCtrl.defaults.heightPointer * 0.85) + "px", 
+                    "left": $.fn.displayImageCtrl.defaults.widthPointer + settings.paddingZoom + "px"
+                });
+                
                 $('.' + settings.zoomedImageClass).css({ 
-                    "top": ((-y * settings.scaleFactor) + 75) + "px", 
-                    "left": ((-x * settings.scaleFactor) + 75) + "px"
+                    "top": ((-y * settings.scaleFactor) + (sizeH * settings.scaleFactor)) + "px", 
+                    "left": ((-x * settings.scaleFactor) + (sizeW * settings.scaleFactor)) + "px"
                 });
 
                 $('.' + settings.overlayClass).css({
-                    "border-bottom": $.fn.displayImageCtrl.defaults.height - (y + size) + "px solid rgba(193, 193, 193, .5)",
-                    "border-top": (y - size) + "px solid rgba(193, 193, 193, .5)",
-                    "border-left": (x - size) + "px solid rgba(193, 193, 193, .5)",
-                    "border-right": $.fn.displayImageCtrl.defaults.width - (x + size) + "px solid rgba(193, 193, 193, .5)"
+                    "border-bottom": $.fn.displayImageCtrl.defaults.height - (y + sizeH) + "px solid rgba(193, 193, 193, .5)",
+                    "border-top": (y - sizeH) + "px solid rgba(193, 193, 193, .5)",
+                    "border-left": (x - sizeW) + "px solid rgba(193, 193, 193, .5)",
+                    "border-right": $.fn.displayImageCtrl.defaults.width - (x + sizeW) + "px solid rgba(193, 193, 193, .5)"
                 });
             }
         });
@@ -149,10 +158,6 @@
     };
 
     $.fn.displayImageCtrl.defaults = {
-        heightZoomWindow: "150px",
-        widthZoomWindow: "150px",
-        xPosZoomWindow: 75,
-        yPosZoomWindow: 120,
         overlayClass: 'overlay',
         zoomedPopupClass: 'zoom-window',
         imageHolderClass: 'img-holder',
@@ -161,7 +166,10 @@
         mainClass: 'main',
         imageWidth: null,
         imageHeight: null,
-        sizeSquare: 100,
+        paddingZoom: 25,
+        scalePointer: 0.25,
+        widthPointer: null,
+        heightPointer: null,
         scaleFactor: 3,
         textButton: "Load Image"
     };
