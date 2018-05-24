@@ -4,6 +4,12 @@
             var settings = $.extend({}, $.fn.displayImageCtrl.defaults, options);
             var $element = $(this);
             var $container = createMainContainer($(this));
+            var mouseinside = false;
+            var x = 0;
+            var y = 0;
+            var last_x = 0;
+            var last_y = 0; 
+
             var $overlayElement;
             var $zoomedImageElement;
             var $zoomedPopupElement;
@@ -14,6 +20,18 @@
             var pointerHeight;
 
             createInput(createLabel($container));
+
+            function startQueue() {
+                var queue = function () {
+                    if (mouseinside) {
+                        if(last_x != x && last_y != y){
+                            moveZoomScreen(x, y);
+                        }
+                    }
+                    setTimeout(queue, 50);
+                }
+                setTimeout(queue, 50);
+            }
 
             function createZoomedImage(container, originalImage) {
                 return $zoomedImageElement = $('<img/>', {
@@ -35,12 +53,15 @@
                 return $overlayElement = $('<div/>', {
                     class: settings.overlayClass,
                     mouseleave: function(event) {
+                        mouseinside = false;
                         $zoomedPopupElement.remove();
                         $(event.target).remove();
                     },
                     mousemove: function(event) {
                         var offset = $(event.target).offset();
-                        moveZoomScreen(event.pageX - offset.left, event.pageY - offset.top);
+                        x = event.pageX - offset.left;
+                        y = event.pageY - offset.top;
+                        mouseinside = true;
                     }
                 }).appendTo(container).css({
                     "top": "0",
@@ -126,6 +147,7 @@
                             var reader = new FileReader();
                             reader.onload = function(e) {
                                 createImageHolder($container).attr('src', reader.result);
+                                startQueue();
                                 $buttonElement.remove();
                             };
                             reader.readAsDataURL(this.files[0]);
@@ -168,6 +190,8 @@
                     "border-left": validateBorderSize(x - sizeW, overlayWidth) + "px solid rgba(193, 193, 193, .5)",
                     "border-right": validateBorderSize(overlayWidth - (x + sizeW), overlayWidth) + "px solid rgba(193, 193, 193, .5)"
                 });
+                last_x = x;
+                last_y = y; 
             }
         });
 
