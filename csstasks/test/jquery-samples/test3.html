@@ -6,6 +6,12 @@
             <label>You typed: </label>
             <label data-bind="text"></label>
         </div>
+
+        <div class="main">
+            <input data-bind="text" />
+            <label>You typed: </label>
+            <label data-bind="text"></label>
+        </div>
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
@@ -24,10 +30,7 @@
                 width: 500px;
                 height: 200px;
                 border: 1px solid black;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                position: absolute;
+                
                 padding: 20px 40px;
             }
 
@@ -41,37 +44,52 @@
                 $.fn.databind = function(model) {
                     return this.each(function() {
                         var $main = $(this);
-                        var $textInput = $main.find("input");
-                        var $label = $main.find("label[data-bind=text]");
+                        var $elements = $main.find("[data-bind]");
 
-                        $textInput.on("keypress", function(event){
-                            model.text.set($textInput.val());
+                        $elements.on("keyup, change, input propertychange", function(event) {
+                            var $this = $(this);                            
+                            model[$this.data('bind')].set($this.val());
+                        }).each(function(i, el) {
+                            var $this = $(this);
+                            var prop = model[$this.data('bind')];
+                            prop.addHandler(function (val) {
+                                $this.val(val).text(val);                            
+                            })
+                            var val = prop.get();
+                            $this.val(val).text(val);
                         });
-
-                         $label.on("change", function(event, data){
-                            $label.text(data);
-                         });
                     });
                 
                     return this;
                 }
                 
-                function text(val) {
+                function property(val) {
                     var value = val;
+                    var handlers = [];
                     return {
                         get: function() {
                             return value;
                         },
                         set: function(val) {
-                            if(val !== value){
-                                $("label[data-bind=text]").trigger("change", val);
+                            if (val !== value) {
+                                value = val;
+                                for(var i = 0; i < handlers.length; i++) {
+                                    handlers[i](value);
+                                }
                             }
+                        },
+                        addHandler: function(handler) {
+                            if (handler) { handlers.push(handler); }
+                        },
+                        removeHandler: function(handler) {
+                            var i = -1;
+                            if (handler && (i = handlers.indexOf(handler)) >= 0) { handlers.splice(i, 1);  }
                         }
                     }
                 }
 
                 var model = {
-                    text: text('')
+                    text: property('')
                 }
 
                 $(".main").databind(model);
