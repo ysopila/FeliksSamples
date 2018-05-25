@@ -1,26 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+    <body>
+        <div class="main">
+            <input data-bind="text" />
+            <label>You typed: </label>
+            <label data-bind="text"></label>
+        </div>
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
-<body>
-    <div id="counter1"></div>
-    <div id="counter2"></div>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script>
-        (function ($) {
-            $.fn.count = function () {
-                return this.each(function () {
-                    var $this = $(this);
-                    $this.text($.fn.count.defaultOptions.startCount + '');
-                    var myInterval = window.setInterval(function () {
-                        var currentCount = parseFloat($this.text()); 
-                        var newCount = currentCount + 1;
-                        $this.text(newCount + '');
-                    }, 1000);
-                });
-            }; $.fn.count.defaultOptions = { startCount: 100 };
-        })(jQuery);
-        jQuery('#counter1, #counter2').count(); 
-    </script>
-</body>
+        <style>
+            body{
+                padding: 0;
+            }
 
+            label{
+                margin-top:10px;
+                display:inline-block;
+            }
+
+            .main{
+                background-color: brown;
+                width: 500px;
+                height: 200px;
+                border: 1px solid black;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                position: absolute;
+                padding: 20px 40px;
+            }
+
+            input{
+                display: block;
+            }
+        </style>
+
+        <script>
+            (function($) {
+                $.fn.databind = function(model) {
+                    return this.each(function() {
+                        var $main = $(this);
+                        var $textInput = $main.find("input");
+                        var $label = $main.find("label[data-bind=text]");
+
+                        $textInput.on("keypress", function(event){
+                            model.text.set($textInput.val());
+                        });
+
+                         $label.on("change", function(event, data){
+                            $label.text(data);
+                         });
+                    });
+                
+                    return this;
+                }
+                
+                function text(val) {
+                    var value = val;
+                    return {
+                        get: function() {
+                            return value;
+                        },
+                        set: function(val) {
+                            if(val !== value){
+                                $("label[data-bind=text]").trigger("change", val);
+                            }
+                        }
+                    }
+                }
+
+                var model = {
+                    text: text('')
+                }
+
+                $(".main").databind(model);
+            }(jQuery));
+        </script>
+    </body>
 </html>
