@@ -49,7 +49,7 @@
                         $elements.on("keyup, change, input propertychange", function(event) {
                             var $this = $(this);                            
                             model[$this.data('bind')].set($this.val(), this);
-                        }).each(function(i, el) {
+                        }).each(function() {
                             var $this = $(this);
                             var prop = model[$this.data('bind')];
                             prop.addHandler(function (val) {
@@ -63,7 +63,7 @@
                     return this;
                 }
 
-                $('.main').each(function(i, el) {
+                $('.main').each(function() {
                     var $main = $(this);
                     $('button', this).on('click', function() {
                         $main.data('model')[$('input', $main).data('bind')].removeHandler($('input', $main)[0]);
