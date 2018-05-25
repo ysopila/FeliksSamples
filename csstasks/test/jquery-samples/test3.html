@@ -2,7 +2,7 @@
 <html lang="en">
     <body>
         <div class="main">
-            <input data-bind="text" />
+            <input data-bind="text" /><button>Switch to one way binding</button>
             <label>You typed: </label>
             <label data-bind="text"></label>
         </div>
@@ -44,17 +44,18 @@
                 $.fn.databind = function(model) {
                     return this.each(function() {
                         var $main = $(this);
+                        $main.data('model', model);
                         var $elements = $main.find("[data-bind]");
 
                         $elements.on("keyup, change, input propertychange", function(event) {
                             var $this = $(this);                            
-                            model[$this.data('bind')].set($this.val());
+                            model[$this.data('bind')].set($this.val(), this);
                         }).each(function(i, el) {
                             var $this = $(this);
                             var prop = model[$this.data('bind')];
                             prop.addHandler(function (val) {
                                 $this.val(val).text(val);                            
-                            })
+                            }, this);
                             var val = prop.get();
                             $this.val(val).text(val);
                         });
@@ -62,6 +63,13 @@
                 
                     return this;
                 }
+
+                $('.main').each(function(i, el) {
+                    var $main = $(this);
+                    $('button', this).on('click', function() {
+                        $main.data('model')[$('input', $main).data('bind')].removeHandler($('input', $main)[0]);
+                    })
+                });
                 
                 function property(val) {
                     var value = val;
@@ -70,20 +78,27 @@
                         get: function() {
                             return value;
                         },
-                        set: function(val) {
+                        set: function(val, sender) {
                             if (val !== value) {
                                 value = val;
                                 for(var i = 0; i < handlers.length; i++) {
-                                    handlers[i](value);
+                                    if (!sender || handlers[i].target !== sender) {
+                                        handlers[i].handler(value);
+                                    }
                                 }
                             }
                         },
-                        addHandler: function(handler) {
-                            if (handler) { handlers.push(handler); }
+                        addHandler: function(handler, target) {
+                            if (handler) { handlers.push({target: target, handler: handler }); }
                         },
-                        removeHandler: function(handler) {
-                            var i = -1;
-                            if (handler && (i = handlers.indexOf(handler)) >= 0) { handlers.splice(i, 1);  }
+                        removeHandler: function(target) {
+                            for(var i = 0; i < handlers.length; i++) {
+                                if (handlers[i].target == target) {
+                                    handlers.splice(i, 1);
+                                    break;
+                                }
+                            }
+                            // Search for handler by sender and remove it
                         }
                     }
                 }
