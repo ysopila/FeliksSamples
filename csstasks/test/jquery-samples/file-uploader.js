@@ -21,16 +21,13 @@
 
             createInput(createLabel($container));
 
-            function startQueue() {
-                var queue = function () {
-                    if (mouseinside) {
-                        if(last_x != x || last_y != y){
-                            moveZoomScreen(x, y);
-                        }
+            function startQueue(timestamp) {
+                if (mouseinside) {
+                    if(last_x != x || last_y != y){
+                        moveZoomScreen(x, y);
                     }
-                    setTimeout(queue, 50);
                 }
-                setTimeout(queue, 50);
+                window.requestAnimationFrame(startQueue);
             }
 
             function createZoomedImage(container, originalImage) {
@@ -149,7 +146,7 @@
                             var reader = new FileReader();
                             reader.onload = function(e) {
                                 createImageHolder($container).attr('src', reader.result);
-                                startQueue();
+                                window.requestAnimationFrame(startQueue);
                                 $buttonElement.remove();
                             };
                             reader.readAsDataURL(this.files[0]);
