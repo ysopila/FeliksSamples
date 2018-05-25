@@ -2,13 +2,16 @@
 <html lang="en">
     <body>
         <div class="main">
-            <input data-bind="text" /><button>Switch to one way binding</button>
+            <input data-bind="text" />
+            <button>Switch to one way binding</button>
+            <br/>            
             <label>You typed: </label>
             <label data-bind="text"></label>
         </div>
 
         <div class="main">
             <input data-bind="text" />
+            <br/>
             <label>You typed: </label>
             <label data-bind="text"></label>
         </div>
@@ -32,10 +35,6 @@
                 border: 1px solid black;
                 
                 padding: 20px 40px;
-            }
-
-            input{
-                display: block;
             }
         </style>
 
