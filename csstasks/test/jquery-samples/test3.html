@@ -88,7 +88,7 @@
                             }
                         },
                         addHandler: function(handler, target) {
-                            if (handler) { handlers.push({target: target, handler: handler }); }
+                            if (handler) { handlers.push({ target: target, handler: handler }); }
                         },
                         removeHandler: function(target) {
                             for(var i = 0; i < handlers.length; i++) {
@@ -97,7 +97,6 @@
                                     break;
                                 }
                             }
-                            // Search for handler by sender and remove it
                         }
                     }
                 }
