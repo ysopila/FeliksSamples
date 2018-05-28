@@ -1,19 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
     <body>
-        <div class="main">
-            <input data-bind="text" />
+        <div class="main1">
+            <input data-bind="text1" />
             <button>Switch to one way binding</button>
             <br/>            
             <label>You typed: </label>
-            <label data-bind="text"></label>
+            <label data-bind="text1"></label>
         </div>
 
         <div class="main">
-            <input data-bind="text" />
+            <input data-bind="text1" />
             <br/>
             <label>You typed: </label>
-            <label data-bind="text"></label>
+            <label data-bind="text1"></label>
+            <br/>
+            <input type="checkbox" data-bind="checkbox1">
+            <br/>
+            <label>You checked: </label>
+            <label data-bind="checkbox1"></label>
+            <br/>
+
+            <select data-bind="select1">
+                <option data-bind="select1" value="1">1</option>
+                <option data-bind="select1" value="2">2</option>
+                <option data-bind="select1" value="3">3</option>
+                <option data-bind="select1" value="4">4</option>
+            </select>
+
+            <br/>
+            <label>You checked: </label>
+            <label data-bind="select1"></label>
+
+            <br/>
+            <input type="radio" name="test" data-bind="radio1" value="1" /> 1
+            <input type="radio" name="test" data-bind="radio1" value="2" /> 2
+            <input type="radio" name="test" data-bind="radio1" value="3" /> 3
+            <br/> 
+            <label>You checked: </label>
+            <label data-bind="radio1"></label>
+        </div>
+
+        <div class="main">
+             <input data-bind="text1" />
+            <br/>
+            <label>You typed: </label>
+            <label data-bind="text1"></label>
+            <br/>
+            <input type="checkbox" data-bind="checkbox1">
+            <br/>
+            <label>You checked: </label>
+            <label data-bind="checkbox1"></label>
+            <br/>
+
+             <select data-bind="select1">
+                <option data-bind="select1" value="1">1</option>
+                <option data-bind="select1" value="2">2</option>
+                <option data-bind="select1" value="3">3</option>
+                <option data-bind="select1" value="4">4</option>
+            </select>
+
+            <br/>
+            <label>You checked: </label>
+            <label data-bind="select1"></label>
+
+             <br/>
+            <input type="radio" name="test" data-bind="radio1" value="1" /> 1
+            <input type="radio" name="test" data-bind="radio1" value="2" /> 2
+            <input type="radio" name="test" data-bind="radio1" value="3" /> 3
+            <br/> 
+            <label>You checked: </label>
+            <label data-bind="radio1"></label>
         </div>
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -22,13 +79,11 @@
             body{
                 padding: 0;
             }
-
             label{
                 margin-top:10px;
                 display:inline-block;
             }
-
-            .main{
+            .main, .main1{
                 background-color: brown;
                 width: 500px;
                 height: 200px;
@@ -45,24 +100,27 @@
                         var $main = $(this);
                         $main.data('model', model);
                         var $elements = $main.find("[data-bind]");
-
                         $elements.on("keyup, change, input propertychange", function(event) {
-                            var $this = $(this);                            
-                            model[$this.data('bind')].set($this.val(), this);
+                            var $this = $(this);     
+                            var data;
+                            if($this.is(':checkbox')){
+                                data = $this.is(':checked');    
+                            }else{
+                                data = $this.val();
+                            }                       
+                            model[$this.data('bind')].set(data, this);
                         }).each(function() {
                             var $this = $(this);
                             var prop = model[$this.data('bind')];
                             prop.addHandler(function (val) {
-                                $this.val(val).text(val);                            
+                                $this.val(val).text(val);  
                             }, this);
-                            var val = prop.get();
-                            $this.val(val).text(val);
                         });
                     });
                 
                     return this;
                 }
-
+                
                 $('.main').each(function() {
                     var $main = $(this);
                     $('button', this).on('click', function() {
@@ -82,13 +140,17 @@
                                 value = val;
                                 for(var i = 0; i < handlers.length; i++) {
                                     if (!sender || handlers[i].target !== sender) {
-                                        handlers[i].handler(value);
+                                        if($(handlers[i].target).prop('type') != 'radio' && handlers[i].target.tagName != 'OPTION'){
+                                            handlers[i].handler(value);
+                                        }
                                     }
                                 }
                             }
                         },
                         addHandler: function(handler, target) {
-                            if (handler) { handlers.push({ target: target, handler: handler }); }
+                            if (handler) { 
+                                handlers.push({ target: target, handler: handler }); 
+                            }
                         },
                         removeHandler: function(target) {
                             for(var i = 0; i < handlers.length; i++) {
@@ -102,10 +164,25 @@
                 }
 
                 var model = {
-                    text: property('')
+                    text1: property(''),
+                    checkbox1: property(''),
+                    select1: property(''),
+                    radio1: property('')
                 }
 
-                $(".main").databind(model);
+                $(".main1").databind(model);
+                $($(".main")[0]).databind( {
+                    text1: property('First'),
+                    checkbox1: property('First'),
+                    select1: property('First'),
+                    radio1: property('First')
+                });
+                $($(".main")[1]).databind( {
+                    text1: property('Second'),
+                    checkbox1: property('Second'),
+                    select1: property('Second'),
+                    radio1: property('Second')
+                });
             }(jQuery));
         </script>
     </body>
