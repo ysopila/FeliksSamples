@@ -219,7 +219,7 @@
                                     if ($(handlers[i].target).prop('type') == 'radio' &&
                                         $(handlers[i].target).prop('name') != $(sender).prop('name')) {
                                         handlers[i].handler(value);
-                                    } else if ($(sender).prop('type') == 'select-one'){
+                                    } else if (sender.tagName.toLowerCase() == 'select'){
                                         if(handlers[i].target.tagName.toLowerCase() == 'option'){
                                             var option = $(sender).find(':selected');
                                             if(($(handlers[i].target) != option) && (option.val() == $(handlers[i].target).val())){
