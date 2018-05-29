@@ -172,7 +172,7 @@
 
                 return this;
             }
-
+            
             $('.main1').each(function() {
                 var $main = $(this);
                 $('button', this).on('click', function(event) {
@@ -181,11 +181,10 @@
                     } else if (event.target.id == 'second') {
                         $main.data('model')[$('input[type=checkbox]', $main).data('bind')].removeHandler($('input[type=checkbox]', $main)[0]);
                     } else if (event.target.id == 'third') {
-
+                        $main.data('model')[$('select[name=testselect1] option', $main).data('bind')].removeHandler($('select[name=testselect1] option', $main));
                     } else if (event.target.id == 'fourth') {
-                        $main.data('model')[$('input[name=test1]', $main).data('bind')].removeHandler($('input', $main)[0]);
+                        $main.data('model')[$('input[name=test1]', $main).data('bind')].removeHandler($('input[name=test1]', $main));
                     }
-                    //$main.data('model')[$('input', $main).data('bind')].removeHandler($('input', $main)[0]);
                 })
             });
 
@@ -227,10 +226,20 @@
                         }
                     },
                     removeHandler: function(target) {
-                        for (var i = 0; i < handlers.length; i++) {
-                            if (handlers[i].target == target) {
-                                handlers.splice(i, 1);
-                                break;
+                        if(target.length > 1){
+                            for(var i = 0; i < target.length; i++){
+                                for (var j = 0; j < handlers.length; j++) {
+                                    if (handlers[j].target == target[i]) {
+                                        handlers.splice(j, 1);
+                                    }
+                                }
+                            }
+                        }else{
+                            for (var i = 0; i < handlers.length; i++) {
+                                if (handlers[i].target == target) {
+                                    handlers.splice(i, 1);
+                                    break;
+                                }
                             }
                         }
                     }
