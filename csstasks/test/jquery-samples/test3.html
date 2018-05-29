@@ -20,18 +20,18 @@
         <br/>
 
         <select name="testselect" data-bind="select1">
-            <option data-bind="select1" value="1">1</option>
-            <option data-bind="select1" value="2">2</option>
-            <option data-bind="select1" value="3">3</option>
-            <option data-bind="select1" value="4">4</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
         </select>
         <br/>
         <label>You checked: </label>
         <select name="testselect1" data-bind="select1">
-            <option data-bind="select1" value="1">1</option>
-            <option data-bind="select1" value="2">2</option>
-            <option data-bind="select1" value="3">3</option>
-            <option data-bind="select1" value="4">4</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
         </select>
         <br/>
         <button id="third">Switch to one way binding</button>
@@ -97,10 +97,12 @@
                                 }
                             } else if ($this.prop('type') == 'checkbox') {
                                 $this.prop('checked', val);
-                            } else if(this.target.tagName.toLowerCase() == 'option') {
-                                $this.prop('selected', true);
-                            }else {
-                                $this.val(val).text(val);
+                            } else {
+                                if ($this.is('input, select')) {
+                                    $this.val(val);
+                                } else {
+                                    $this.text(val);
+                                }
                             }
                         }, this);
                     });
@@ -117,9 +119,9 @@
                     } else if (event.target.id == 'second') {
                         $main.data('model')[$('input[type=checkbox]', $main).data('bind')].removeHandler($('input[type=checkbox]', $main)[0]);
                     } else if (event.target.id == 'third') {
-                        $main.data('model')[$('select[name=testselect1] option', $main).data('bind')].removeHandler($('select[name=testselect1] option', $main));
+                        $main.data('model')[$('select[name=testselect1]', $main).data('bind')].removeHandler($('select[name=testselect1]', $main)[0]);
                     } else if (event.target.id == 'fourth') {
-                        $main.data('model')[$('input[name=test1]', $main).data('bind')].removeHandler($('input[name=test1]', $main));
+                        $('input[name=test1]', $main).each(function() { $main.data('model')[$(this).data('bind')].removeHandler(this) });
                     }
                 })
             });
@@ -136,19 +138,7 @@
                             value = val;
                             for (var i = 0; i < handlers.length; i++) {
                                 if (!sender || handlers[i].target !== sender) {
-                                    if ($(handlers[i].target).prop('type') == 'radio' &&
-                                        $(handlers[i].target).prop('name') != $(sender).prop('name')) {
-                                        handlers[i].handler(value);
-                                    } else if ($(sender).prop('type') == 'select-one'){
-                                        if(handlers[i].target.tagName.toLowerCase() == 'option'){
-                                            var option = $(sender).find(':selected');
-                                            if(($(handlers[i].target) != option) && (option.val() == $(handlers[i].target).val())){
-                                                handlers[i].handler(value);
-                                            }
-                                        }
-                                    } else {
-                                        handlers[i].handler(value);
-                                    }
+                                    handlers[i].handler(value);
                                 }
                             }
                         }
@@ -162,20 +152,10 @@
                         }
                     },
                     removeHandler: function(target) {
-                        if(target.length > 1){
-                            for(var i = 0; i < target.length; i++){
-                                for (var j = 0; j < handlers.length; j++) {
-                                    if (handlers[j].target == target[i]) {
-                                        handlers.splice(j, 1);
-                                    }
-                                }
-                            }
-                        }else{
-                            for (var i = 0; i < handlers.length; i++) {
-                                if (handlers[i].target == target) {
-                                    handlers.splice(i, 1);
-                                    break;
-                                }
+                        for (var i = 0; i < handlers.length; i++) {
+                            if (handlers[i].target == target) {
+                                handlers.splice(i, 1);
+                                break;
                             }
                         }
                     }
