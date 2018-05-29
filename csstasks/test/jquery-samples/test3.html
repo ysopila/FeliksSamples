@@ -1,251 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
-    <body>
-        <div class="main1">
-            <input data-bind="text1"/>
-            <br/>            
-            <label>You typed: </label>
-            <input label data-bind="text1"/>
-            <br/>
-            <button id="first" >Switch to one way binding</button>
-            <br/>
 
-            <input type="checkbox" data-bind="checkbox1">
-            <br/>
-            <label>You checked: </label>
-            <input type="checkbox" data-bind="checkbox1"/>
-            <br/>
-            <button id="second">Switch to one way binding</button>
-            <br/>
+<body>
+    <div class="main1">
+        <input data-bind="text1" />
+        <br/>
+        <label>You typed: </label>
+        <input label data-bind="text1" />
+        <br/>
+        <button id="first">Switch to one way binding</button>
+        <br/>
 
-            <select data-bind="select1">
-                <option data-bind="select1" value="1">1</option>
-                <option data-bind="select1" value="2">2</option>
-                <option data-bind="select1" value="3">3</option>
-                <option data-bind="select1" value="4">4</option>
-            </select>
-            <br/>
-            <label>You checked: </label>
-            <select data-bind="select1">
-                <option data-bind="select1" value="1">1</option>
-                <option data-bind="select1" value="2">2</option>
-                <option data-bind="select1" value="3">3</option>
-                <option data-bind="select1" value="4">4</option>
-            </select>
-            <br/>
-            <button id="third">Switch to one way binding</button>
-            <br/>
+        <input type="checkbox" data-bind="checkbox1">
+        <br/>
+        <label>You checked: </label>
+        <input type="checkbox" data-bind="checkbox1" />
+        <br/>
+        <button id="second">Switch to one way binding</button>
+        <br/>
 
-            <input type="radio" name="test" data-bind="radio1" value="1" /> 1
-            <input type="radio" name="test" data-bind="radio1" value="2" /> 2
-            <input type="radio" name="test" data-bind="radio1" value="3" /> 3
-            <br/> 
-            <label>You checked: </label>
-            <input type="radio" name="test1" data-bind="radio1" value="1" /> 1
-            <input type="radio" name="test1" data-bind="radio1" value="2" /> 2
-            <input type="radio" name="test1" data-bind="radio1" value="3" /> 3
-            <br/>
-            <button id="fourth">Switch to one way binding</button>
-        </div>
+        <select name="testselect" data-bind="select1">
+            <option data-bind="select1" value="1">1</option>
+            <option data-bind="select1" value="2">2</option>
+            <option data-bind="select1" value="3">3</option>
+            <option data-bind="select1" value="4">4</option>
+        </select>
+        <br/>
+        <label>You checked: </label>
+        <select name="testselect1" data-bind="select1">
+            <option data-bind="select1" value="1">1</option>
+            <option data-bind="select1" value="2">2</option>
+            <option data-bind="select1" value="3">3</option>
+            <option data-bind="select1" value="4">4</option>
+        </select>
+        <br/>
+        <button id="third">Switch to one way binding</button>
+        <br/>
 
-        <div class="main">
-            <input data-bind="text1" />
-            <br/>
-            <label>You typed: </label>
-            <input data-bind="text1" />
-            <br/>
-            <input type="checkbox" data-bind="checkbox1">
-            <br/>
-            <label>You checked: </label>
-            <input data-bind="checkbox1"/>
-            <br/>
+        <input type="radio" name="test" data-bind="radio1" value="1" /> 1
+        <input type="radio" name="test" data-bind="radio1" value="2" /> 2
+        <input type="radio" name="test" data-bind="radio1" value="3" /> 3
+        <br/>
+        <label>You checked: </label>
+        <input type="radio" name="test1" data-bind="radio1" value="1" /> 1
+        <input type="radio" name="test1" data-bind="radio1" value="2" /> 2
+        <input type="radio" name="test1" data-bind="radio1" value="3" /> 3
+        <br/>
+        <button id="fourth">Switch to one way binding</button>
+    </div>
 
-            <select data-bind="select1">
-                <option data-bind="select1" value="1">1</option>
-                <option data-bind="select1" value="2">2</option>
-                <option data-bind="select1" value="3">3</option>
-                <option data-bind="select1" value="4">4</option>
-            </select>
+    <div class="main">
+        <input data-bind="text1" />
+        <br/>
+        <label>You typed: </label>
+        <input data-bind="text1" />
+        <br/>
+        <input type="checkbox" data-bind="checkbox1">
+        <br/>
+        <label>You checked: </label>
+        <input data-bind="checkbox1" />
+        <br/>
 
-            <br/>
-            <label>You checked: </label>
-            <label data-bind="select1"></label>
+        <select data-bind="select1">
+            <option data-bind="select1" value="1">1</option>
+            <option data-bind="select1" value="2">2</option>
+            <option data-bind="select1" value="3">3</option>
+            <option data-bind="select1" value="4">4</option>
+        </select>
 
-            <br/>
-            <input type="radio" name="test" data-bind="radio1" value="1" /> 1
-            <input type="radio" name="test" data-bind="radio1" value="2" /> 2
-            <input type="radio" name="test" data-bind="radio1" value="3" /> 3
-            <br/> 
-            <label>You checked: </label>
-            <label data-bind="radio1"></label>
-        </div>
+        <br/>
+        <label>You checked: </label>
+        <label data-bind="select1"></label>
 
-        <div class="main">
-             <input data-bind="text1" />
-            <br/>
-            <label>You typed: </label>
-            <label data-bind="text1"></label>
-            <br/>
-            <input type="checkbox" data-bind="checkbox1">
-            <br/>
-            <label>You checked: </label>
-            <label data-bind="checkbox1"></label>
-            <br/>
+        <br/>
+        <input type="radio" name="test" data-bind="radio1" value="1" /> 1
+        <input type="radio" name="test" data-bind="radio1" value="2" /> 2
+        <input type="radio" name="test" data-bind="radio1" value="3" /> 3
+        <br/>
+        <label>You checked: </label>
+        <label data-bind="radio1"></label>
+    </div>
 
-             <select data-bind="select1">
-                <option data-bind="select1" value="1">1</option>
-                <option data-bind="select1" value="2">2</option>
-                <option data-bind="select1" value="3">3</option>
-                <option data-bind="select1" value="4">4</option>
-            </select>
+    <div class="main">
+        <input data-bind="text1" />
+        <br/>
+        <label>You typed: </label>
+        <label data-bind="text1"></label>
+        <br/>
+        <input type="checkbox" data-bind="checkbox1">
+        <br/>
+        <label>You checked: </label>
+        <label data-bind="checkbox1"></label>
+        <br/>
 
-            <br/>
-            <label>You checked: </label>
-            <label data-bind="select1"></label>
+        <select data-bind="select1">
+            <option data-bind="select1" value="1">1</option>
+            <option data-bind="select1" value="2">2</option>
+            <option data-bind="select1" value="3">3</option>
+            <option data-bind="select1" value="4">4</option>
+        </select>
 
-            <br/>
-            <input type="radio" name="test" data-bind="radio1" value="1" /> 1
-            <input type="radio" name="test" data-bind="radio1" value="2" /> 2
-            <input type="radio" name="test" data-bind="radio1" value="3" /> 3
-            <br/> 
-            <label>You checked: </label>
-            <label data-bind="radio1"></label>
-        </div>
+        <br/>
+        <label>You checked: </label>
+        <label data-bind="select1"></label>
+
+        <br/>
+        <input type="radio" name="test" data-bind="radio1" value="1" /> 1
+        <input type="radio" name="test" data-bind="radio1" value="2" /> 2
+        <input type="radio" name="test" data-bind="radio1" value="3" /> 3
+        <br/>
+        <label>You checked: </label>
+        <label data-bind="radio1"></label>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <style>
+        body {
+            padding: 0;
+        }
         
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        label {
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        .main,
+        .main1 {
+            background-color: brown;
+            width: 500px;
+            height: 300px;
+            border: 1px solid black;
+            padding: 20px 40px;
+        }
+    </style>
 
-        <style>
-            body{
-                padding: 0;
-            }
-            label{
-                margin-top:10px;
-                display:inline-block;
-            }
-            .main, .main1{
-                background-color: brown;
-                width: 500px;
-                height: 300px;
-                border: 1px solid black;
-                
-                padding: 20px 40px;
-            }
-        </style>
-
-        <script>
-            (function($) {
-                $.fn.databind = function(model) {
-                    return this.each(function() {
-                        var $main = $(this);
-                        $main.data('model', model);
-                        var $elements = $main.find("[data-bind]");
-                        $elements.on("keyup, change, input propertychange", function(event) {
-                            var $this = $(this);     
-                            var data;
-                            if($this.is(':checkbox')){
-                                data = $this.is(':checked');    
-                            }else{
-                                data = $this.val();
-                            }                       
-                            model[$this.data('bind')].set(data, this);
-                        }).each(function() {
-                            var $this = $(this);
-                            var prop = model[$this.data('bind')];
-                            prop.addHandler(function (val, name) {
-                                if($this.prop('type') == 'radio'){
-                                    if($this.val() == val){
-                                        $this.prop('checked', val);
-                                    }
-                                }else if($this.prop('type') == 'checkbox'){
-                                    $this.prop('checked', val);
-                                }else{
-                                    $this.val(val).text(val);                                     
-                                }
-                            }, this);
-                        });
-                    });
-                
-                    return this;
-                }
-                
-                $('.main1').each(function() {
+    <script>
+        (function($) {
+            $.fn.databind = function(model) {
+                return this.each(function() {
                     var $main = $(this);
-                    $('button', this).on('click', function(event) {
-                        if(event.target.id == 'first'){
-                            $main.data('model')[$('input[data-bind=text1]', $main).data('bind')].removeHandler($('input[data-bind=text1]', $main)[0]);
-                        }else if(event.target.id == 'second'){
-                            $main.data('model')[$('input[type=checkbox]', $main).data('bind')].removeHandler($('input[type=checkbox]', $main)[0]);
-                        }else if(event.target.id == 'third'){
-
-                        }else if(event.target.id == 'fourth'){
-                            $main.data('model')[$('input[name=test1]', $main).data('bind')].removeHandler($('input', $main)[0]);
+                    $main.data('model', model);
+                    var $elements = $main.find("[data-bind]");
+                    $elements.on("keyup, change, input propertychange", function(event) {
+                        var $this = $(this);
+                        var data;
+                        if ($this.is(':checkbox')) {
+                            data = $this.is(':checked');
+                        } else {
+                            data = $this.val();
                         }
-                        //$main.data('model')[$('input', $main).data('bind')].removeHandler($('input', $main)[0]);
-                    })
+                        model[$this.data('bind')].set(data, this);
+                    }).each(function() {
+                        var $this = $(this);
+                        var prop = model[$this.data('bind')];
+                        prop.addHandler(function(val) {
+                            if ($this.prop('type') == 'radio') {
+                                if ($this.val() == val) {
+                                    $this.prop('checked', val);
+                                }
+                            } else if ($this.prop('type') == 'checkbox') {
+                                $this.prop('checked', val);
+                            } else if(this.target.tagName.toLowerCase() == 'option') {
+                                $this.prop('selected', true);
+                            }else {
+                                $this.val(val).text(val);
+                            }
+                        }, this);
+                    });
                 });
-                
-                function property(val) {
-                    var value = val;
-                    var handlers = [];
-                    return {
-                        get: function() {
-                            return value;
-                        },
-                        set: function(val, sender) {
-                            if (val !== value) {
-                                value = val;
-                                for(var i = 0; i < handlers.length; i++) {
-                                    if (!sender || handlers[i].target !== sender) {
-                                        if($(handlers[i].target).prop('type') == 'radio'){
-                                            if($(handlers[i].target).prop('name') != $(sender).prop('name')){
+
+                return this;
+            }
+
+            $('.main1').each(function() {
+                var $main = $(this);
+                $('button', this).on('click', function(event) {
+                    if (event.target.id == 'first') {
+                        $main.data('model')[$('input[data-bind=text1]', $main).data('bind')].removeHandler($('input[data-bind=text1]', $main)[0]);
+                    } else if (event.target.id == 'second') {
+                        $main.data('model')[$('input[type=checkbox]', $main).data('bind')].removeHandler($('input[type=checkbox]', $main)[0]);
+                    } else if (event.target.id == 'third') {
+
+                    } else if (event.target.id == 'fourth') {
+                        $main.data('model')[$('input[name=test1]', $main).data('bind')].removeHandler($('input', $main)[0]);
+                    }
+                    //$main.data('model')[$('input', $main).data('bind')].removeHandler($('input', $main)[0]);
+                })
+            });
+
+            function property(val) {
+                var value = val;
+                var handlers = [];
+                return {
+                    get: function() {
+                        return value;
+                    },
+                    set: function(val, sender) {
+                        if (val !== value) {
+                            value = val;
+                            for (var i = 0; i < handlers.length; i++) {
+                                if (!sender || handlers[i].target !== sender) {
+                                    if ($(handlers[i].target).prop('type') == 'radio' &&
+                                        $(handlers[i].target).prop('name') != $(sender).prop('name')) {
+                                        handlers[i].handler(value);
+                                    } else if ($(sender).prop('type') == 'select-one'){
+                                        if(handlers[i].target.tagName.toLowerCase() == 'option'){
+                                            var option = $(sender).find(':selected');
+                                            if(($(handlers[i].target) != option) && (option.val() == $(handlers[i].target).val())){
                                                 handlers[i].handler(value);
                                             }
-                                        }else if(handlers[i].target.tagName == 'OPTION'){
-                                            //handlers[i].handler(value);
-                                        }else{
-                                            handlers[i].handler(value);
                                         }
+                                    } else {
+                                        handlers[i].handler(value);
                                     }
                                 }
                             }
-                        },
-                        addHandler: function(handler, target) {
-                            if (handler) { 
-                                handlers.push({ target: target, handler: handler }); 
-                            }
-                        },
-                        removeHandler: function(target) {
-                            for(var i = 0; i < handlers.length; i++) {
-                                if (handlers[i].target == target) {
-                                    handlers.splice(i, 1);
-                                    break;
-                                }
+                        }
+                    },
+                    addHandler: function(handler, target) {
+                        if (handler) {
+                            handlers.push({
+                                target: target,
+                                handler: handler
+                            });
+                        }
+                    },
+                    removeHandler: function(target) {
+                        for (var i = 0; i < handlers.length; i++) {
+                            if (handlers[i].target == target) {
+                                handlers.splice(i, 1);
+                                break;
                             }
                         }
                     }
                 }
+            }
+            var model = {
+                text1: property(''),
+                checkbox1: property(''),
+                select1: property(''),
+                radio1: property('')
+            }
+            $(".main1").databind(model);
+            $(".main").eq(0).databind({
+                text1: property(''),
+                checkbox1: property(''),
+                select1: property(''),
+                radio1: property('')
+            });
+            $($(".main")[1]).databind({
+                text1: property(''),
+                checkbox1: property(''),
+                select1: property(''),
+                radio1: property('')
+            });
+        }(jQuery));
+    </script>
+</body>
 
-                var model = {
-                    text1: property(''),
-                    checkbox1: property(''),
-                    select1: property(''),
-                    radio1: property('')
-                }
-
-                $(".main1").databind(model);
-                $(".main").eq(0).databind( {
-                    text1: property(''),
-                    checkbox1: property(''),
-                    select1: property(''),
-                    radio1: property('')
-                });
-                $($(".main")[1]).databind( {
-                    text1: property(''),
-                    checkbox1: property(''),
-                    select1: property(''),
-                    radio1: property('')
-                });
-            }(jQuery));
-        </script>
-    </body>
 </html>
