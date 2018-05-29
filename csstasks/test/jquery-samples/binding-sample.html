@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            html, body {
+                width: 100%;
+                max-width: 1200px;
+                margin: auto;
+                padding: 10px;
+            }
+            .left {
+                width: 50%;
+                float: left;
+                padding: 5px;
+            }
+            .right {
+                width: 50%;
+                float: right;
+            }
+            .panel {
+                padding: 10px;
+                border: 1px solid grey;
+            }
+            .row {
+                position: relative;
+                padding: 5px 0 5px 120px;
+            }
+            .row label {
+                position: absolute;
+                left: 0; 
+                top: 5px;
+            }
+            .full-row {
+                padding: 5px 0;
+            }
+        </style>
+         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+         <script type="text/javascript">
+            $(function() {
+                $.fn.databind = function(model) {
+                    return this.each(function() {
+                        var $main = $(this);
+                        $main.data('model', model);
+                        var $elements = $main.find("[data-bind]");
+                        $elements.on("keyup, change, input propertychange", function(event) {
+                            var $this = $(this);
+                            var data;
+                            if ($this.is(':checkbox')) {
+                                data = $this.is(':checked');
+                            } else {
+                                data = $this.val();
+                            }
+                            model[$this.data('bind')].set(data, this);
+                        }).each(function() {
+                            var $this = $(this);
+                            var prop = model[$this.data('bind')];
+                            prop.addHandler(function(val) {
+                                if ($this.prop('type') == 'radio') {
+                                    if ($this.val() == val) {
+                                        $this.prop('checked', val);
+                                    }
+                                } else if ($this.prop('type') == 'checkbox') {
+                                    $this.prop('checked', val);
+                                } else {
+                                    if ($this.is('input, select')) {
+                                        $this.val(val);
+                                    } else {
+                                        $this.text(val);
+                                    }
+                                }
+                            }, this);
+                        });
+                    });
+                    return this;
+                }
+
+                function property(val) {
+                    var value = val;
+                    var handlers = [];
+                    return {
+                        get: function() {
+                            return value;
+                        },
+                        set: function(val, sender) {
+                            if (val !== value) {
+                                value = val;
+                                for (var i = 0; i < handlers.length; i++) {
+                                    if (!sender || handlers[i].target !== sender) {
+                                        handlers[i].handler(value);
+                                    }
+                                }
+                            }
+                        },
+                        addHandler: function(handler, target) {
+                            if (handler) {
+                                handlers.push({
+                                    target: target,
+                                    handler: handler
+                                });
+                            }
+                        },
+                        removeHandler: function(target) {
+                            for (var i = 0; i < handlers.length; i++) {
+                                if (handlers[i].target == target) {
+                                    handlers.splice(i, 1);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                var leftModel = {
+                    firstName: property(''),
+                    lastName: property(''),
+                    gender: property(''),
+                    country: property(''),
+                    newsletters: property(false),
+                    updates: property(false)
+                }
+                $('#data-entry').databind(leftModel);
+
+                var rightModel = {
+                    firstName: property(''),
+                    lastName: property(''),
+                    gender: property(''),
+                    country: property(''),
+                    newsletters: property("don't"),
+                    updates: property("don't")
+                }
+                $('#statements').databind(rightModel);
+
+                $('#live-update').on('change, click', function () {
+                    if ($(this).is(':checked')) {
+                        rightModel.firstName.set(leftModel.firstName.get());
+                        rightModel.lastName.set(leftModel.lastName.get());
+                        rightModel.gender.set(leftModel.gender.get());
+                        rightModel.country.set(leftModel.country.get());
+                        rightModel.newsletters.set(leftModel.newsletters.get() ? '' : "don't");
+                        rightModel.updates.set(leftModel.updates.get() ? '' : "don't");
+                        
+                        leftModel.firstName.addHandler(function(val) { rightModel.firstName.set(val); }, rightModel.firstName);
+                        leftModel.lastName.addHandler(function(val) { rightModel.lastName.set(val); }, rightModel.lastName);
+                        leftModel.gender.addHandler(function(val) { rightModel.gender.set(val); }, rightModel.gender);
+                        leftModel.country.addHandler(function(val) { rightModel.country.set(val); }, rightModel.country);
+                        leftModel.newsletters.addHandler(function(val) { if (val) { rightModel.newsletters.set('') } else { rightModel.newsletters.set("don't") }; }, rightModel.newsletters);                        
+                        leftModel.updates.addHandler(function(val) { if (val) { rightModel.updates.set('') } else { rightModel.updates.set("don't") }; }, rightModel.updates);                        
+                    } else {
+                        leftModel.firstName.removeHandler(rightModel.firstName);
+                        leftModel.lastName.removeHandler(rightModel.lastName);
+                        leftModel.gender.removeHandler(rightModel.gender);
+                        leftModel.country.removeHandler(rightModel.country);
+                        leftModel.newsletters.removeHandler(rightModel.newsletters);
+                        leftModel.updates.removeHandler(rightModel.updates);
+                    }
+                });
+                $('[name=update]').click(function() {
+                    rightModel.firstName.set(leftModel.firstName.get());
+                    rightModel.lastName.set(leftModel.lastName.get());
+                    rightModel.gender.set(leftModel.gender.get());
+                    rightModel.country.set(leftModel.country.get());
+                    rightModel.newsletters.set(leftModel.newsletters.get() ? '' : "don't");
+                    rightModel.updates.set(leftModel.updates.get() ? '' : "don't");
+                });
+            });
+         </script>
+    </head>
+    <body>
+        <div class='left'>
+            <div class='panel' id='data-entry'>
+                <div class="row">
+                    <label>First name:</label>
+                    <input type="text" data-bind="firstName" />
+                </div>
+                <div class="row">
+                    <label>Last name:</label>
+                    <input type="text" data-bind="lastName" />
+                </div>
+                <div class="row">
+                    <label>Gender:</label>
+                    <select data-bind="gender">
+                        <option value=""></option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label>Country:</label>
+                    <div>
+                        <input type="radio" name="Country" data-bind="country" value="Ukraine" />Ukraine
+                        <input type="radio" name="Country" data-bind="country" value="USA" />USA
+                        <input type="radio" name="Country" data-bind="country" value="France" />France
+                    </div>
+                </div>
+                <div class="row"><label for="newsletter">Newsletter: </label><input type="checkbox" name="newsletter" id='newsletters' data-bind="newsletters" /></div>
+                <div class="row"><label for="updates">Updates: </label><input type="checkbox" name="updates" id='updates' data-bind="updates" /></div>
+            </div>
+        </div>
+        <div class='right'>
+            <div class="full-row"><input type="checkbox" name="live-update" id='live-update' /><label for="live-update">live update</label></div>
+            <div class="full-row"><button name='update'>Update</button></div>
+            <div class='panel' id='statements'>
+                <lable data-bind="firstName"></lable>
+                <lable data-bind="lastName"></lable>
+                , please, verify that next statements are correct
+                <ul>
+                    <li>you are <lable data-bind="gender"></lable></li>
+                    <li>you are from <lable data-bind="country"></lable></li>
+                    <li>you <lable data-bind="updates">don't</lable> want to receive updates and you <lable data-bind="newsletters">don't</lable> want to receive newsletters</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
