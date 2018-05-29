@@ -49,6 +49,86 @@
         <button id="fourth">Switch to one way binding</button>
     </div>
 
+    <div class="main">
+        <input data-bind="text1" />
+        <br/>
+        <label>You typed: </label>
+        <input label data-bind="text1" />
+        <br/>
+
+        <input type="checkbox" data-bind="checkbox1">
+        <br/>
+        <label>You checked: </label>
+        <input type="checkbox" data-bind="checkbox1" />
+        <br/>
+
+        <select name="testselect" data-bind="select1">
+            <option data-bind="select1" value="1">1</option>
+            <option data-bind="select1" value="2">2</option>
+            <option data-bind="select1" value="3">3</option>
+            <option data-bind="select1" value="4">4</option>
+        </select>
+        <br/>
+        <label>You checked: </label>
+        <select name="testselect1" data-bind="select1">
+            <option data-bind="select1" value="1">1</option>
+            <option data-bind="select1" value="2">2</option>
+            <option data-bind="select1" value="3">3</option>
+            <option data-bind="select1" value="4">4</option>
+        </select>
+        <br/>
+
+        <input type="radio" name="test" data-bind="radio1" value="1" /> 1
+        <input type="radio" name="test" data-bind="radio1" value="2" /> 2
+        <input type="radio" name="test" data-bind="radio1" value="3" /> 3
+        <br/>
+        <label>You checked: </label>
+        <input type="radio" name="test1" data-bind="radio1" value="1" /> 1
+        <input type="radio" name="test1" data-bind="radio1" value="2" /> 2
+        <input type="radio" name="test1" data-bind="radio1" value="3" /> 3
+        <br/>
+    </div>
+    
+    <div class="main">
+        <input data-bind="text1" />
+        <br/>
+        <label>You typed: </label>
+        <input label data-bind="text1" />
+        <br/>
+
+        <input type="checkbox" data-bind="checkbox1">
+        <br/>
+        <label>You checked: </label>
+        <input type="checkbox" data-bind="checkbox1" />
+        <br/>
+
+        <select name="testselect" data-bind="select1">
+            <option data-bind="select1" value="1">1</option>
+            <option data-bind="select1" value="2">2</option>
+            <option data-bind="select1" value="3">3</option>
+            <option data-bind="select1" value="4">4</option>
+        </select>
+        <br/>
+        <label>You checked: </label>
+        <select name="testselect1" data-bind="select1">
+            <option data-bind="select1" value="1">1</option>
+            <option data-bind="select1" value="2">2</option>
+            <option data-bind="select1" value="3">3</option>
+            <option data-bind="select1" value="4">4</option>
+        </select>
+        <br/>
+
+        <input type="radio" name="test" data-bind="radio1" value="1" /> 1
+        <input type="radio" name="test" data-bind="radio1" value="2" /> 2
+        <input type="radio" name="test" data-bind="radio1" value="3" /> 3
+        <br/>
+        <label>You checked: </label>
+        <input type="radio" name="test1" data-bind="radio1" value="1" /> 1
+        <input type="radio" name="test1" data-bind="radio1" value="2" /> 2
+        <input type="radio" name="test1" data-bind="radio1" value="3" /> 3
+        <br/>
+    </div>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
     <style>
@@ -168,7 +248,7 @@
                 radio1: property('')
             }
             $(".main1").databind(model);
-            /*$(".main").eq(0).databind({
+            $(".main").eq(0).databind({
                 text1: property(''),
                 checkbox1: property(''),
                 select1: property(''),
@@ -179,7 +259,7 @@
                 checkbox1: property(''),
                 select1: property(''),
                 radio1: property('')
-            });*/
+            });
         }(jQuery));
     </script>
 </body>
