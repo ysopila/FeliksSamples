@@ -124,14 +124,16 @@
                 return data;
             }
 
-            function propertyInput(val) {
+            function propertyInput(val, liveupdate) {
                 var value = val;
                 var handlers = [];
+                var liveUpdate = liveupdate;
 
                 return {
                     get: function() {
                         return value;
                     },
+
                     set: function(val, sender) {
                         var id = sender.id;
                         if (id == 'firstname' && value.firstName != val) {
@@ -148,13 +150,25 @@
                             value.updates = val;
                         }
                 
-                        if($("#live-update").is(':checked')){
+                        if(liveUpdate.is(':checked')){
+                            var isName = (id == 'firstname' || id == 'lastname');
+
+                            if(isName){
+                                val = value.firstName + " " + value.lastName;
+                            }
+
+                            if(id == 'updates' || id == 'newsletter'){
+                                val = val ? "want" : "don't want";
+                            }
+
                             for (var i = 0; i < handlers.length; i++) {
-                                //if (!sender || handlers[i].target !== sender) {
-                                    if(sender.id == handlers[i].id){
-                                        handlers[i].handler(value);
-                                    }
-                                //}
+                                if ((isName && handlers[i].target.id == 'name') ||
+                                    (id == 'gender' &&  handlers[i].target.id == 'gender') || 
+                                    (sender.name == 'country' &&  handlers[i].target.id == 'country') ||
+                                    (id == 'newsletter' &&  handlers[i].target.id == 'newsletter') ||
+                                    (id == 'updates' &&  handlers[i].target.id == 'updates')) {
+                                    handlers[i].handler(val);
+                                }
                             }
                         }
                     },
@@ -179,9 +193,9 @@
                         var prop = model[$this.data('bind')];
                         var val = prop.get();
 
-                        /*val.text.addHandler(function(val) {
+                        val.text.addHandler(function(val) {
                             $this.text(val);
-                        }, this);*/
+                        }, this);
 
                         var data = getValue(this, val.text.get());
                         if(this.id == 'newsletter' || this.id == 'updates'){data = data ? "want" : "don't want";}
@@ -202,11 +216,11 @@
                     },
                     set: function(val) {
                         for (var i = 0; i < handlers.length; i++) {
-                            //if (!sender || handlers[i].target !== sender) {
-                                //if(sender.id == handlers[i].id){
+                            if (!sender || handlers[i].target !== sender) {
+                                if(sender.id == handlers[i].id){
                                     handlers[i].handler(value);
-                                //}
-                            //}
+                                }
+                            }
                         }
                     }
                 }
@@ -220,7 +234,7 @@
                     country: 'Ukraine',
                     newsLetters: true,
                     updates: false
-                })
+                }, $("#live-update"))
             });
 
             $(".right-container").setupOutput({
