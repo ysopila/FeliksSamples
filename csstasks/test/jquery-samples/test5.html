@@ -2,31 +2,308 @@
 <html lang="en">
 
 <body>
-    <div class="div1">jQuery1</div>
-    <a href="http://www.jquery.com">jQuery</a>
-    <div class="div2"><span>stop</span></div>
+    <div class="container">
+        <div class="row">
+            <label>First name</label>
+            <input id="firstname" type='text' data-bind="text" />
+        </div>
+        <div class="row">
+            <label>Last name</label>
+            <input id="lastname" type='text' data-bind="text" />
+        </div>
+        <div class="row">
+            <label>Gender</label>
+            <select id="gender" data-bind="text">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="row">
+            <label>Country</label>
+            <div class="column">
+                <input type="radio" id="country_1" name="country" value="Ukraine" data-bind="text" />Ukraine<br/>
+                <input type="radio" id="country_2" name="country" value="USA" data-bind="text" />USA<br/>
+                <input type="radio" id="country_3" name="country" value="France" data-bind="text" />France
+            </div>
+        </div>
+        <div class="row">
+            <label>Newsletters</label>
+            <input id="newsletter" type="checkbox" data-bind="text" />
+        </div>
+        <div class="row">
+            <label>Updates</label>
+            <input id="updates" type="checkbox" data-bind="text" />
+        </div>
+    </div>
+    <div class="right-container">
+        <input id="live-update" type="checkbox"/>Live update (means that statements are updated when user fills inputs)
+        <button>Update (triggers update of statements from model)</button>
+        <div class="info">
+            <div class="text-holder">
+                <label id="name" data-bind="text"></label>
+                <label>, please, verify that next statements are correct</label>
+                <br/>
+                <label>you are&nbsp;</label>
+                <label id="gender" data-bind="text"></label>
+                <br/>
+                <label>you are from&nbsp;</label>
+                <label id="country" data-bind="text"></label>
+                <br/>
+                <label>you&nbsp;</label>
+                <label id="updates" data-bind="text"></label>
+                <label>&nbsp;to receive updates and you&nbsp;</label> 
+                <label id="newsletter" data-bind="text"></label>
+                <label>&nbsp;receive Newsletters</label>
+            </div>
+        </div>
+    </div>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script> 
-        (function ($) {
-            $('a').click(function (event) { 
-                event.preventDefault(); 
+    <script>
+        (function($) {
+            $('button').on('click', function(event) {
+                //$(".right-container").data('model').updateInfo();
             });
-        })(jQuery); 
 
-        $('.div1').click(function () {
-            $(this).trigger('myCustomEvent');
-        })
+            $.fn.setupInput = function(model) {
+                return this.each(function() {
+                    var $main = $(this);
+                    $main.data('model', model);
+                    var $elements = $main.find('[data-bind]');
 
-        $('.div1').bind('myCustomEvent', function () {
-            window.location = 'http://www.jquery.com';
-        });
+                    $elements.on("keyup, change, input propertychange", function(event) {
+                        var $this = $(this);
+                        var data;
 
-        $('.div2').click(function (event) {
-            alert('You clicked the outer div');
-        });
+                        if ($this.is(':checkbox')) {
+                            data = $this.is(':checked');
+                        } else {
+                            data = $this.val();
+                        }
 
-        $('span').click(function (event) {
-            alert('You clicked a span inside of a div element');
-        });
+                        model[$this.data('bind')].set(data, this);
+                    }).each(function() {
+                        var $this = $(this);
+                        var prop = model[$this.data('bind')];
+                        var val = prop.get();
+                        var data = getValue(this, val);
+
+                        if ($this.is(':checkbox')) {
+                            $this.prop('checked', data);
+                        } else if ($this.prop('type') == 'radio') {
+                            if(this.value == data){
+                                $this.prop('checked', data);
+                            }
+                        } else if (this.tagName.toLowerCase() == 'select') {
+                            $this.val(data);
+                        } else {
+                            $this.val(data).text(data);
+                        }
+                    });
+                });
+
+                return this;
+            }
+
+            function getValue(element, val) {
+                var data;
+
+                if (element.id == 'firstname') {
+                    data = val.firstName;
+                } else if (element.id == 'lastname') {
+                    data = val.lastName;
+                } else if (element.id == 'gender') {
+                    data = val.gender;
+                } else if (element.name == 'country' || element.id == 'country') {
+                    data = val.country;
+                } else if (element.id == 'newsletter') {
+                    data = val.newsLetters;
+                } else if (element.id == 'updates') {
+                    data = val.updates;
+                }else if (element.id == 'name'){
+                    data = val.firstName + ' ' + val.lastName;
+                }
+                return data;
+            }
+
+            function propertyInput(val, liveupdate) {
+                var value = val;
+                var handlers = [];
+                var liveUpdate = liveupdate;
+
+                return {
+                    get: function() {
+                        return value;
+                    },
+
+                    set: function(val, sender) {
+                        var id = sender.id;
+                        if (id == 'firstname' && value.firstName != val) {
+                            value.firstName = val;
+                        } else if (id == 'lastname' && value.lastName != val) {
+                            value.lastName = val;
+                        } else if (id == 'gender' && value.gender != val) {
+                            value.gender = val;
+                        } else if (sender.name == 'country' && value.country != val) {
+                            value.country = val;
+                        } else if (id == 'newsletter' && value.newsLetters != val) {
+                            value.newsLetters = val;
+                        } else if (id == 'updates' && value.updates != val) {
+                            value.updates = val;
+                        }
+                
+                        if(liveUpdate.is(':checked')){
+                            var isName = (id == 'firstname' || id == 'lastname');
+
+                            if(isName){
+                                val = value.firstName + " " + value.lastName;
+                            }
+
+                            if(id == 'updates' || id == 'newsletter'){
+                                val = val ? "want" : "don't want";
+                            }
+
+                            for (var i = 0; i < handlers.length; i++) {
+                                if ((isName && handlers[i].target.id == 'name') ||
+                                    (id == 'gender' &&  handlers[i].target.id == 'gender') || 
+                                    (sender.name == 'country' &&  handlers[i].target.id == 'country') ||
+                                    (id == 'newsletter' &&  handlers[i].target.id == 'newsletter') ||
+                                    (id == 'updates' &&  handlers[i].target.id == 'updates')) {
+                                    handlers[i].handler(val);
+                                }
+                            }
+                        }
+                    },
+                    addHandler: function(handler, target) {
+                        if (handler) {
+                            handlers.push({
+                                target: target,
+                                handler: handler
+                            });
+                        }
+                    }
+                }
+            }
+
+            $.fn.setupOutput = function(model) {
+                return this.each(function() {
+                    var $main = $(this);
+                    $main.data('model', model);
+                    var $elements = $main.find('[data-bind]');
+                    $elements.each(function() {
+                        var $this = $(this);
+                        var prop = model[$this.data('bind')];
+                        var val = prop.get();
+
+                        val.text.addHandler(function(val) {
+                            $this.text(val);
+                        }, this);
+
+                        var data = getValue(this, val.text.get());
+                        if(this.id == 'newsletter' || this.id == 'updates'){data = data ? "want" : "don't want";}
+                        $this.text(data);
+                    }, this);
+                });
+
+                return this;
+            }
+
+            function propertyOutput(val) {
+                var value = val;
+                var handlers = [];
+
+                return {
+                    get: function() {
+                        return value;
+                    },
+                    set: function(val) {
+                    }
+                }
+            }
+
+            $(".container").setupInput({
+                text: propertyInput({
+                    firstName: 'John',
+                    lastName: 'Due',
+                    gender: 'Female',
+                    country: 'Ukraine',
+                    newsLetters: true,
+                    updates: false
+                }, $("#live-update"))
+            });
+
+            $(".right-container").setupOutput({
+                text: propertyOutput($(".container").data('model')) 
+            });
+        })(jQuery);
     </script>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        .container {
+            float: left;
+            width: 25%;
+            position: relative;
+            border: 1px solid black;
+            padding: 10px 0 10px 0;
+        }
+        
+        .right-container {
+            float: left;
+            width: 30%;
+            position: relative;
+            padding: 10px 0 10px 30px;
+        }
+        
+        .right-container .info {
+            width: 100%;
+            border: 1px solid black;
+            position: absolute;
+            padding: 10px 0 10px 10px;
+            margin: 25px 0 0 0;
+        }
+        
+        .container .row {
+            width: 100%;
+            position: relative;
+            padding: 5px 0 5px 30px;
+            float: left;
+        }
+
+        .right-container button{
+            margin: 10px 0 0 0;
+        }
+
+        .row .column{
+            float: left;
+        }
+
+        .info label {
+            position: relative;
+            float: left;
+        }
+
+        .container label {
+            width: 15%;
+            float: left;
+            position: relative;
+            padding: 0 10px 0 0;
+        }
+        
+        select {
+            width: 50%;
+            float: left;
+            position: relative;
+        }
+        
+        input[type=text] {
+            width: 50%;
+            float: left;
+            position: relative;
+        }
+    </style>
 </body>
