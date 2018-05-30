@@ -62,7 +62,7 @@
     <script>
         (function($) {
             $('button').on('click', function(event) {
-                $(".right-container").data('model').text.set($(".container").data('model').text.get());
+                //$(".right-container").data('model').updateInfo();
             });
 
             $.fn.setupInput = function(model) {
@@ -87,7 +87,7 @@
                         var prop = model[$this.data('bind')];
                         var val = prop.get();
                         var data = getValue(this, val);
-                        var t = $this.prop('type');
+
                         if ($this.is(':checkbox')) {
                             $this.prop('checked', data);
                         } else if ($this.prop('type') == 'radio') {
@@ -217,13 +217,6 @@
                         return value;
                     },
                     set: function(val) {
-                        for (var i = 0; i < handlers.length; i++) {
-                            if (!sender || handlers[i].target !== sender) {
-                                if(sender.id == handlers[i].id){
-                                    handlers[i].handler(value);
-                                }
-                            }
-                        }
                     }
                 }
             }
