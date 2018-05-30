@@ -87,11 +87,13 @@
                         var prop = model[$this.data('bind')];
                         var val = prop.get();
                         var data = getValue(this, val);
-
+                        var t = $this.prop('type');
                         if ($this.is(':checkbox')) {
                             $this.prop('checked', data);
-                        } else if ($this.prop('type') == 'radio' && this.value == data) {
-                            $this.prop('checked', data);
+                        } else if ($this.prop('type') == 'radio') {
+                            if(this.value == data){
+                                $this.prop('checked', data);
+                            }
                         } else if (this.tagName.toLowerCase() == 'select') {
                             $this.val(data);
                         } else {
