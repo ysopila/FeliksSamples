@@ -2,28 +2,45 @@
 <html lang="en">
 
 <body>
-    <select id="s" name="s">
-        <option value="option1">option one</option>
-        <option value="option2">option two</option>
-    </select>
-    <input type="radio" value="radio1">
-    <input type="radio" value="radio2">
-    <input type="checkbox" value="checkbox1">
-    <input type="checkbox" value="checkbox2">
-    <input name="button" type="button" id="button1" />
-    <input name="button" type="button" id="button2" disabled="disabled" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script> (function ($) {
-            alert($('#button1').is(':enabled'));
-            alert($('#button1:enabled').length);
-            alert($('#button2').is(':disabled')); 
-            alert($('#button2:disabled').length);
-        })(jQuery); 
-        $('input:radio,input:checkbox').val(['radio1', 'radio2', 'checkbox1', 'checkbox2']); 
-        $('select').val('option2');
-        alert($('select').val());
-        alert($('option').index($('option:first')));
-        </script>
+    <script> 
+    (function(){
+        'use strict';
+
+        function all(iterables){
+            var obj = {
+                size : iterables.length,
+                arr : []
+            };
+            return new Promise((resolve, reject) => {
+                iterables.reduce(function(previousValue, currentValue, index, array) {
+                    Promise.resolve(currentValue).then(function(value) {
+                        previousValue.arr.push(value)
+                        if(index == (previousValue.size-1)){
+                            resolve(previousValue.arr);
+                        }
+                    }, function(error){
+                        reject(error);
+                    });
+
+                    return previousValue;
+                }, obj);
+            });
+        } 
+
+        var p1 = Promise.resolve(3);
+        var p2 = 1337;
+        var p3 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 100, "foo");
+        }); 
+
+        all([p1, p2, p3]).then(values => { 
+            console.log(values); 
+        }, error => {
+            console.log(error);
+        });
+    })(jQuery);
+    </script>
 </body>
 
 </html>
