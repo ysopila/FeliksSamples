@@ -8,9 +8,9 @@
         'use strict';
 
         function all(iterables){
-            var obj = []; 
             return new Promise((resolve, reject) => {
                 iterables.forEach(function(currentValue, index) {
+                    var obj = this;
                     Promise.resolve(currentValue).then(function(value) {
                         obj.splice(index, 0, value);
                         if(obj.length == iterables.length){
@@ -19,7 +19,7 @@
                     }, function(error){
                         reject(error);
                     });
-                }, obj);
+                }, []);
             });
         } 
 
@@ -35,11 +35,16 @@
             console.log(error);
         });
 
-        Promise.all([p2, p3, p1]).then(values => { 
+        /*Promise.all([p2, p3, p1]).then(values => { 
             console.log(values); 
         }, error => {
             console.log(error);
-        });
+        });*/
+
+/*         [10, 12, 25].forEach(function(el, i) { 
+                console.log(this, el, i); 
+            }, 
+        "test") */
     })(jQuery);
     </script>
 </body>
