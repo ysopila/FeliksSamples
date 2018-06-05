@@ -8,22 +8,17 @@
         'use strict';
 
         function all(iterables){
-            var obj = {
-                size : iterables.length,
-                arr : []
-            };
+            var obj = []; 
             return new Promise((resolve, reject) => {
-                iterables.reduce(function(previousValue, currentValue, index) {
+                iterables.forEach(function(currentValue, index) {
                     Promise.resolve(currentValue).then(function(value) {
-                        previousValue.arr.splice(index, 0, value);
-                        if(previousValue.arr.length == previousValue.size){
-                            resolve(previousValue.arr);
+                        obj.splice(index, 0, value);
+                        if(obj.length == iterables.length){
+                            resolve(obj);
                         }
                     }, function(error){
                         reject(error);
                     });
-
-                    return previousValue;
                 }, obj);
             });
         } 
@@ -34,13 +29,13 @@
         }); 
         var p2 = 1337;
 
-        all([p1, p3, p2]).then(values => { 
+        all([p2, p3, p1]).then(values => { 
             console.log(values); 
         }, error => {
             console.log(error);
         });
 
-        Promise.all([p1, p3, p2]).then(values => { 
+        Promise.all([p2, p3, p1]).then(values => { 
             console.log(values); 
         }, error => {
             console.log(error);
