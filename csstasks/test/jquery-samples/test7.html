@@ -2,29 +2,101 @@
 <html lang="en">
 
 <body>
-    <style>
-        .last {
-            background: #900;
-        }
-    </style>
-    <ul id="list">
-        <li></li>
-        <li>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </li>
-        <li></li>
-        <li></li>
-    </ul>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script> (function ($) {
-            $('#list').find('> li').filter(':last').addClass('last').end()
-            .find('ul').css('background', '#ccc').find('li:last').addClass('last').end().end().end()
-            .find('li').append('I am an &lt;li&gt;');
-        })(jQuery); </script>
+    <script> 
+        (function ($) {
+            var arr = [1,2,3,4,5];
+            console.log("before unshift:  ", arr.length);
+            console.log("unshift:  ", arr);
+            arr.unshift(25, 26, 28);
+            console.log("after unshift:  ", arr.length);
+            console.log("unshift:  ", arr);
+
+            arr.splice(2, 0, 'index');
+            console.log("splice:  ", arr);
+            var removed = arr.splice(3, 1);
+            console.log("splice remove:  ", removed);
+            console.log("splice:  ", arr);
+
+            console.log("sorted: ", arr.sort());
+            var arr = [1123,332,23,34,35];
+            console.log("sorted: ", arr.sort(function(a, b){
+                return a - b;
+            }));
+
+            console.log("some1", arr.some(elem => elem < 24));
+            console.log("some2", arr.some(elem => elem > 2000));
+
+            console.log("slice", arr.slice(1, 3));
+            console.log("slice", arr);
+
+            var shifted = arr.shift();
+            console.log('shift: ', arr);
+            console.log('shifted: ', shifted);
+            console.log('reversed: ', arr.reverse());
+            console.log('reversed: ', arr);
+
+            var arr1 = [];
+            for(var i = 0; i < 10; i++){
+                arr1.push(i);
+            }
+            
+            console.log('pushed: ', arr1);
+
+            for(var i = 0; i < 2; i++){
+                var popped = arr1.pop();
+                console.log('popped: ', popped);
+                console.log('pop: ', arr1);
+            }
+
+            var doubles = arr1.map(function(val) {
+                return val * 2;
+            });
+            console.log('doubles: ', doubles);
+            console.log('arr: ', arr1);
+
+            var i = {};
+            arr1.push(5);
+            console.log('lastIndexOf', arr1.lastIndexOf(5));
+            console.log('lastIndexOf', arr1.lastIndexOf('rec'));
+            console.log('join', arr1.join('='));
+            console.log('indexOf', arr1.indexOf(5));
+            console.log('includes 112', arr1.includes(112));
+            console.log('includes 2', arr1.includes(2));
+            console.log('includes 2', arr1.includes(2));
+            console.log('isArray', Array.isArray(i), Array.isArray(arr1));
+            console.log('of', Array.of(null, undefined, 3, 'rec'));
+
+            var tmp1 = [1,3,5,6];
+            console.log('concat', tmp1.concat(arr1));
+            var tmpEntr = tmp1.entries();
+            console.log("entries()", tmpEntr.next().value); 
+            console.log("entries()", tmpEntr.next().value); 
+            console.log("entries()", tmpEntr.next().value); 
+
+            console.log("every", tmp1.every(function (element, index, array) {
+                return element >= 10;
+            }));
+            tmp1 = [11,32,53,61];
+            console.log("every", tmp1.every(function (element, index, array) {
+                return element >= 10;
+            }));
+
+            console.log('fill', tmp1.fill(100, 1, 4));
+            console.log('filter before', arr1);
+            console.log('filter', arr1.filter(val => val > 4));
+            console.log('filter', arr1);
+            console.log('find', arr1);
+            console.log('find', arr1.find(val => val > 5));
+            console.log('findIndex', arr1.find(val => val > 9));
+            console.log('findIndex', arr1.find(val => val > 6));
+            console.log('tostring', arr1.toString());
+
+            console.log("reduceRight: ", arr1.reduceRight(function(pv, cv, i) {
+                return pv + cv + i;
+            }, 22));
+        })(jQuery);
+    </script>
 </body>
 
 </html>
